@@ -1,0 +1,25 @@
+
+services:
+    wobblecode.restbundle.listener.request:
+        class: WobbleCode\RestBundle\EventListener\RequestListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    wobblecode.restbundle.listener.controller:
+        class: WobbleCode\RestBundle\EventListener\ControllerListener
+        arguments:
+            - @annotation_reader
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+    wobblecode.restbundle.listener.view:
+        class: WobbleCode\RestBundle\EventListener\RestListener
+        arguments:
+            - @jms_serializer.serializer
+        tags:
+            - { name: kernel.event_listener, event: kernel.view, method: onKernelView }
+
+    wobblecode.restbundle.kernel.suscriber:
+        class: WobbleCode\RestBundle\EventListener\RestKernelSuscriber
+        tags:
+            - { name: kernel.event_subscriber }

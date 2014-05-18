@@ -1,0 +1,42 @@
+{
+    "name": "wobblecode/rest-bundle",
+    "type": "symfony-bundle",
+    "description": "A bundle that creates REST Apis based on your current controllers actions",
+    "keywords": ["rest", "restful", "api", "content negotiation"],
+    "homepage": "https://github.com/wobblecode/WobbleCodeRestBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luis Hdez",
+            "email": "luis@wobblecode.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "jms/serializer-bundle": "~0.13.0",
+        "symfony/framework-bundle": ">=2.1"
+    },
+    "require-dev": {
+        "symfony/yaml": "*",
+        "symfony/browser-kit": "*",
+        "symfony/class-loader": "*",
+        "symfony/finder": "*",
+        "symfony/css-selector": "*",
+        "symfony/process": "*",
+        "doctrine/doctrine-bundle": "*",
+        "symfony/twig-bundle": "*",
+        "doctrine/orm": "*",
+        "symfony/form": "*",
+        "symfony/validator": "*"
+    },
+    "autoload": {
+        "psr-0": { "WobbleCode\\RestBundle": "" }
+    },
+    "minimum-stability": "dev",
+    "target-dir": "WobbleCode/RestBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+}
