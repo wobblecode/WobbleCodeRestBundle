@@ -14,8 +14,8 @@ namespace WobbleCode\RestBundle\EventListener;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Util\ClassUtils;
-use PayBip\Bundle\RestBundle\Configuration\Rest;
-use PayBip\Bundle\RestBundle\Configuration\ConfigurationInterface;
+use WobbleCode\Bundle\RestBundle\Configuration\Rest;
+use WobbleCode\Bundle\RestBundle\Configuration\ConfigurationInterface;
 
 class ControllerListener
 {
