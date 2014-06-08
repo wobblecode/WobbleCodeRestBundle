@@ -3,7 +3,7 @@
 /*
  * This file is part of the WobbleCodeRestBundle package.
  *
- * (c) WobbleCode <http://wobblecode.com/>
+ * (c) WobbleCode <http://www.wobblecode.com/>
  *
  * For the full copyright and license information, please view the LICENSE file
  * that was distributed with this source code.
