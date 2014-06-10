@@ -31,7 +31,7 @@ class Rest extends ConfigurationAnnotation
     private $acceptedContent = array('application/json');
 
     /**
-     * Define if the payload is assigned to a POST variable
+     * Define if the payload is assigned to a form based in its name
      *
      * @var string
      */
