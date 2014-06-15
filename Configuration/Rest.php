@@ -42,7 +42,7 @@ class Rest extends ConfigurationAnnotation
      *
      * @var string
      */
-    private $statusCodeParam = 'statusCode';
+    private $statusCodeParam = 'status_code';
 
     /**
      * Force to send version in Accept header
