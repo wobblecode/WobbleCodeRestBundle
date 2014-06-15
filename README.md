@@ -42,6 +42,25 @@ the model as well.
         );
     }
 
+Example using [httpie](https://github.com/jakubroztocil/httpie)
+(replace your URL if needed)
+
+    http http://localhost:8000 --json
+
+    HTTP/1.1 200 OK
+    Cache-Control: max-age=0, must-revalidate, no-cache, no-store, public, s-maxage=0
+    Connection: close
+    Content-Type: application/json
+    Host: localhost:8000
+    X-Debug-Token: 243d5e
+    X-Debug-Token-Link: /_profiler/243d5e
+    X-Powered-By: PHP/5.5.7
+
+    {
+        "name": "Test"
+    }
+
+
 ## Setup
 
 ### Add to composer
