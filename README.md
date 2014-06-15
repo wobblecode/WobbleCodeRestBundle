@@ -11,7 +11,7 @@ These are the main features:
 
 + Works with your current controllers
 + Works with your current Symfony forms
-+ Intercetps current redirects
++ Intercepts current redirects
 + Version api support
 + Api based on content negotiation
 + Integrated with JMSSerializerBundle
