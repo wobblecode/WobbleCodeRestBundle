@@ -15,18 +15,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\AutoExpireFlashBag;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class RestKernelSuscriber implements EventSubscriberInterface
+class RestSubscriber implements EventSubscriberInterface
 {
     /**
      *
      * @param Request $request
      * @param Array   $trigger
      *
-     * @return Mixed   false or content accepted
+     * @return Mixed false or content accepted
      */
     public function checkAcceptedContent(Request $request, $acceptedContent)
     {
@@ -44,6 +46,24 @@ class RestKernelSuscriber implements EventSubscriberInterface
         }
 
         return false;
+    }
+
+    public function postAnnotations(FilterControllerEvent $event)
+    {
+        $request = $event->getRequest();
+        $restConfig = $request->attributes->get('_rest');
+
+        if ($restConfig == false) {
+            return;
+        }
+
+        if ($restConfig->getPayloadMapping()) {
+            $content = $request->getContent();
+            if (empty($content) == false) {
+                $payload = json_decode($content, true);
+                $request->request->add(array($restConfig->getPayloadMapping() => $payload));
+            }
+        }
     }
 
     public function onKernelResponse(FilterResponseEvent $event)
@@ -127,7 +147,8 @@ class RestKernelSuscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            KernelEvents::RESPONSE => array('onKernelResponse', 0),
+            KernelEvents::CONTROLLER => array('postAnnotations', 0),
+            KernelEvents::RESPONSE => array('onKernelResponse', 0)
         );
     }
 }

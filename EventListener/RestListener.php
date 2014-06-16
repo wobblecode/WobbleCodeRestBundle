@@ -74,7 +74,7 @@ class RestListener
      * @param Request $request
      * @param Array   $trigger
      *
-     * @return Mixed   false or content accepted
+     * @return Mixed false or content accepted
      */
     public function checkAcceptedContent(Request $request, $acceptedContent)
     {

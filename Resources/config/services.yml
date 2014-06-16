@@ -19,7 +19,7 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.view, method: onKernelView }
 
-    wobblecode.restbundle.kernel.suscriber:
-        class: WobbleCode\RestBundle\EventListener\RestKernelSuscriber
+    wobblecode.restbundle.rest_suscriber:
+        class: WobbleCode\RestBundle\EventListener\RestSubscriber
         tags:
             - { name: kernel.event_subscriber }
