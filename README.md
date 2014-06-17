@@ -1,11 +1,13 @@
 
 # WobbleCodeRestBundle
 
-A bundle that creates REST Apis based on your current controllers actions in
-seconds just using annotations. This is very helpful if you need to access to a
-basic REST api under the same domain or page Practical Case: if you're using
-Backbone, you can progressive enhance the functionality supporting common CRUD
-or One simple page Crud.
+A bundle that creates RESTful Apis in seconds, based on your current controllers
+actions just using annotations. This is very helpful if you need access to a
+basic RESTful API under the same domain or page.
+
+A practical Case: if you're using Backbone, you can progressive enhance the
+functionality supporting common CRUD and One simple page CRUD enabling a quick
+RESTFul API…
 
 These are the main features:
 
@@ -108,8 +110,8 @@ functionality. If there is no match, it will fallback to the controller view.
 
 ### payloadMapping
 
-Define if the payload is assigned to a POST value. This is useful because
-usually forms are expecting to be received under a POST variable with the name
+Defines if the payload is assigned to a POST value. This is useful because
+forms are usually expecting to be received under a POST variable with the name
 of the form Eg: `$_POST['my_form_name']`
 
     /**
