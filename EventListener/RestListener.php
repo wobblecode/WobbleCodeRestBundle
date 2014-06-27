@@ -98,10 +98,14 @@ class RestListener
     {
         $errors = array();
 
+        foreach ($form->vars['errors'] as $error) {
+            $errors['main'][] = $error->getMessage();
+        }
+
         foreach ($form as $key => $v) {
-            if ($v->vars['errors']) {
+            if (isset($v->vars['errors']) && $v->vars['errors']) {
                 foreach ($v->vars['errors'] as $error) {
-                    $errors[$v->vars['name']]['errors'][] = $error->getMessage();
+                    $errors['fields'][$v->vars['name']]['errors'][] = $error->getMessage();
                 }
             }
         }
@@ -115,9 +119,6 @@ class RestListener
         $parameters = $event->getControllerResult();
         $restConfig = $request->attributes->get('_rest');
 
-        /**
-         * Check if we enable REST
-         */
         if ($restConfig == false) {
             return;
         }
@@ -150,7 +151,7 @@ class RestListener
             if ($formErrors) {
 
                 $content = array(
-                    'entity' => $formErrors
+                    'errors' => $formErrors
                 );
 
                 $data = $this->serializer->serialize($content, 'json');

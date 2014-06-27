@@ -23,6 +23,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RestSubscriber implements EventSubscriberInterface
 {
+    protected $container;
+
+    public function constructor($container)
+    {
+        $this->container = $container;
+    }
+
     /**
      *
      * @param Request $request
@@ -48,6 +55,17 @@ class RestSubscriber implements EventSubscriberInterface
         return false;
     }
 
+    public function onKernelRequest(GetResponseEvent $event)
+    {
+        $request = $event->getRequest();
+
+        $acceptedMimeType = $request->headers->get('Accept');
+
+        if (preg_match('/application\/json/i', $acceptedMimeType)) {
+            $request->setRequestFormat('json');
+        }
+    }
+
     public function postAnnotations(FilterControllerEvent $event)
     {
         $request = $event->getRequest();
@@ -57,12 +75,25 @@ class RestSubscriber implements EventSubscriberInterface
             return;
         }
 
+        $trigger = $this->checkAcceptedContent(
+            $request,
+            $restConfig->getAcceptedContent()
+        );
+
+        if ($trigger == false) {
+            return;
+        }
+
         if ($restConfig->getPayloadMapping()) {
             $content = $request->getContent();
             if (empty($content) == false) {
                 $payload = json_decode($content, true);
                 $request->request->add(array($restConfig->getPayloadMapping() => $payload));
             }
+        }
+
+        if ($restConfig->getCsrfProtection()) {
+
         }
     }
 
@@ -107,12 +138,12 @@ class RestSubscriber implements EventSubscriberInterface
          * Intercept 3xx, 4xx, 5xx Exceptions and empty content
          */
         if (preg_match('/^[45]/', $statusCode)) {
-            $response->setContent(null);
+            $response->setContent(json_encode([]));
             return;
         }
 
         if (preg_match('/^[3]/', $statusCode)) {
-            $response->setContent(null);
+            $response->setContent(json_encode([]));
             return;
         }
 
@@ -147,6 +178,7 @@ class RestSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
+            KernelEvents::REQUEST => array('onKernelRequest', 0),
             KernelEvents::CONTROLLER => array('postAnnotations', 0),
             KernelEvents::RESPONSE => array('onKernelResponse', 0)
         );
