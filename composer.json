@@ -14,7 +14,8 @@
     "require": {
         "php": ">=5.3.2",
         "jms/serializer-bundle": "~0.13.0",
-        "symfony/framework-bundle": ">=2.1"
+        "symfony/framework-bundle": ">=2.1",
+        "willdurand/negotiation": "@stable"
     },
     "require-dev": {
         "symfony/yaml": "*",
