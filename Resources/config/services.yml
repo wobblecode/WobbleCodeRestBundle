@@ -8,14 +8,9 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
 
-    wobblecode.restbundle.listener.view:
-        class: WobbleCode\RestBundle\EventListener\RestListener
-        arguments:
-            - @jms_serializer.serializer
-        tags:
-            - { name: kernel.event_listener, event: kernel.view, method: onKernelView }
-
     wobblecode.restbundle.rest_suscriber:
         class: WobbleCode\RestBundle\EventListener\RestSubscriber
+        arguments:
+            - @jms_serializer.serializer
         tags:
             - { name: kernel.event_subscriber }
