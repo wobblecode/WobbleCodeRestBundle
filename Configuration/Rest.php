@@ -80,14 +80,6 @@ class Rest extends ConfigurationAnnotation
      */
     private $defaultFormParam = 'form';
 
-
-    /**
-     * It disable CSRF protection if false
-     *
-     * @var string
-     */
-    private $csrfProtection = true;
-
     /**
      * Set output
      *
@@ -226,26 +218,6 @@ class Rest extends ConfigurationAnnotation
     public function getDefaultFormParam()
     {
         return $this->defaultFormParam;
-    }
-
-    /**
-     * Set csrfProtection.
-     *
-     * @param $csrfProtection boolean
-     */
-    public function setCsrfProtection(boolean $csrfProtection)
-    {
-        return $this->csrfProtection;
-    }
-
-    /**
-     * Returns the annotation alias csrfProtection.
-     *
-     * @return boolean
-     */
-    public function getCsrfProtection()
-    {
-        return $this->csrfProtection;
     }
 
     /**

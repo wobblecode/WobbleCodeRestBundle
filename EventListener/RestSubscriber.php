@@ -106,13 +106,6 @@ class RestSubscriber implements EventSubscriberInterface
         }
 
         /**
-         * @todo Disable CSRF ir required
-         */
-        if ($restConfig->getCsrfProtection() == false) {
-
-        }
-
-        /**
          * Remove controller _template to avoid the lookup
          */
         $request->attributes->add(array('_template' => false));
