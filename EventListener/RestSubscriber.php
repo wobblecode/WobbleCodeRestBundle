@@ -19,10 +19,11 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\Serializer;
+use JMS\Serializer\SerializationContext;
 
 /**
  * @todo add KernelException subscription in order to control all exceptions
@@ -37,12 +38,22 @@ class RestSubscriber implements EventSubscriberInterface
     protected $serializer;
 
     /**
+     * SerializationContext
+     *
+     * @var SerializationContext
+     */
+    protected $serializationContext;
+
+    /**
      * Constructor
      *
      * @param Serializer $serializer JSM Serializer for responses
      */
     public function __construct(Serializer $serializer)
     {
+        $this->serializationContext = new SerializationContext();
+        $this->serializationContext->setSerializeNull(true);
+
         $this->serializer = $serializer;
     }
 
@@ -223,7 +234,7 @@ class RestSubscriber implements EventSubscriberInterface
         foreach ($form as $key => $v) {
             if (isset($v->vars['errors']) && $v->vars['errors']) {
                 foreach ($v->vars['errors'] as $error) {
-                    $errors['fields'][$v->vars['name']]['errors'][] = $error->getMessage();
+                    $errors['fields'][$v->vars['name']][] = $error->getMessage();
                 }
             }
         }
@@ -272,7 +283,12 @@ class RestSubscriber implements EventSubscriberInterface
                     'errors' => $formErrors
                 );
 
-                $data = $this->serializer->serialize($content, 'json');
+                $data = $this->serializer->serialize(
+                    $content,
+                    'json',
+                    $this->serializationContext
+                );
+
                 $request->setRequestFormat('json');
 
                 $response = new Response();
@@ -295,14 +311,16 @@ class RestSubscriber implements EventSubscriberInterface
             array_flip($restConfig->getOutput())
         );
 
-        $data = $this->serializer->serialize($params, 'json');
+        $data = $this->serializer->serialize(
+            $params,
+            'json',
+            $this->serializationContext);
 
         /**
          * Set response
          */
         $response = new Response();
         $response->setContent($data);
-        // $response->headers->set('Content-Type', 'application/json');
         $this->addNoCacheHeaders($response);
         $event->setResponse($response);
     }
