@@ -24,6 +24,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializationContext;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 
 /**
  * @todo add KernelException subscription in order to control all exceptions
@@ -55,6 +56,27 @@ class RestSubscriber implements EventSubscriberInterface
         $this->serializationContext->setSerializeNull(true);
 
         $this->serializer = $serializer;
+    }
+
+    /**
+     * Add metadata for limite, page and current page
+     * @todo add option to define the param that contains the metadata
+     */
+    public function decoupleMetadata($object)
+    {
+        if (isset($object['entities']) && $object['entities'] instanceof SlidingPagination) {
+            $entities = $object['entities'];
+            return [
+                'meta' => [
+                    'total' => $entities->getTotalItemCount(),
+                    'items_per_page' => $entities->getItemNumberPerPage(),
+                    'page_number' => $entities->getCurrentPageNumber()
+                ],
+                'entities' => $entities->getItems()
+            ];
+        }
+
+        return $object;
     }
 
     /**
@@ -311,6 +333,11 @@ class RestSubscriber implements EventSubscriberInterface
             array_flip($restConfig->getOutput())
         );
 
+        /**
+         * It decouples KnpPaginator metadata
+         */
+        $params = $this->decoupleMetadata($params);
+
         $data = $this->serializer->serialize(
             $params,
             'json',
@@ -331,7 +358,7 @@ class RestSubscriber implements EventSubscriberInterface
             KernelEvents::REQUEST => array('onKernelRequest', 0),
             KernelEvents::CONTROLLER => array('postAnnotations', 0),
             KernelEvents::RESPONSE => array('onKernelResponse', 0),
-            KernelEvents::VIEW => array('onKernelView', 0),
+            KernelEvents::VIEW => array('onKernelView', 100),
         );
     }
 }
