@@ -54,7 +54,7 @@ class Rest extends ConfigurationAnnotation
     /**
      * Define version of the api, false as default for no versioning
      *
-     * @var mixed (bool|string)
+     * @var string
      * @see http://php.net/manual/en/function.version-compare.php
      */
     private $defaultVersion = false;
@@ -161,11 +161,51 @@ class Rest extends ConfigurationAnnotation
     }
 
     /**
+     * Set versionRequired
+     *
+     * @param boolean
+     */
+    public function setVersionRequired($versionRequired)
+    {
+        $this->versionRequired = $versionRequired;
+    }
+
+    /**
+     * Get versionRequired
+     *
+     * @return boolean
+     */
+    public function getVersionRequired()
+    {
+        return $this->versionRequired;
+    }
+
+    /**
+     * Set defaultVersion
+     *
+     * @param string
+     */
+    public function setDefaultVersion($defaultVersion)
+    {
+        $this->defaultVersion = $defaultVersion;
+    }
+
+    /**
+     * Get defaultVersion
+     *
+     * @return string
+     */
+    public function getDefaultVersion()
+    {
+        return $this->defaultVersion;
+    }
+
+    /**
      * Set interceptRedirects
      *
      * @param boolean
      */
-    public function setInterceptRedirects(boolean $interceptRedirects)
+    public function setInterceptRedirects(\boolean $interceptRedirects)
     {
         $this->interceptRedirects = $interceptRedirects;
     }
@@ -185,7 +225,7 @@ class Rest extends ConfigurationAnnotation
      *
      * @param boolean
      */
-    public function setProcessForms(boolean $processForms)
+    public function setProcessForms(\boolean $processForms)
     {
         $this->processForms = $processForms;
     }

@@ -28,10 +28,10 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('pay_bip_rest');
+        $rootNode = $treeBuilder->root('wobblecode_rest', 'array');
 
         /**
-         * @todo Create config tree for RestBundle
+         * @todo Create configuration tree for RestBundle
          */
 
         return $treeBuilder;

@@ -82,9 +82,10 @@ class RestSubscriber implements EventSubscriberInterface
     /**
      *
      * @param Request $request
-     * @param Array   $trigger
+     * @param array $acceptedContent
      *
-     * @return Mixed false or string with content accepted
+     * @return Mixed false or string with content accepted or true if all is
+     * accepted
      */
     public function checkAcceptedContent(Request $request, Array $acceptedContent)
     {
@@ -117,7 +118,7 @@ class RestSubscriber implements EventSubscriberInterface
         $request = $event->getRequest();
         $restConfig = $request->attributes->get('_rest');
 
-        if ($restConfig == false) {
+        if ($restConfig === null) {
             return;
         }
 
@@ -126,13 +127,13 @@ class RestSubscriber implements EventSubscriberInterface
             $restConfig->getAcceptedContent()
         );
 
-        if ($trigger == false) {
+        if ($trigger === false) {
             return;
         }
 
         if ($restConfig->getPayloadMapping()) {
             $content = $request->getContent();
-            if (empty($content) == false) {
+            if (empty($content) === false) {
                 $payload = json_decode($content, true);
                 $request->request->add(array($restConfig->getPayloadMapping() => $payload));
             }
@@ -159,18 +160,18 @@ class RestSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if ($restConfig == false) {
+        if ($restConfig === false) {
             return;
         }
 
         $accepted = $restConfig->getAcceptedContent();
         $trigger = $this->checkAcceptedContent($request, $accepted);
 
-        if ($trigger == false) {
+        if ($trigger === false) {
             return;
         }
 
-        if ($restConfig->getInterceptRedirects() == false) {
+        if ($restConfig->getInterceptRedirects() === false) {
             return;
         }
 
@@ -182,7 +183,6 @@ class RestSubscriber implements EventSubscriberInterface
         }
 
         if (preg_match('/^[45]/', $statusCode)) {
-            // $response->setContent(json_encode([]));
             return;
         }
 
@@ -191,7 +191,7 @@ class RestSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if ($response->isRedirect() == false) {
+        if ($response->isRedirect() === false) {
             return;
         }
 
@@ -244,6 +244,8 @@ class RestSubscriber implements EventSubscriberInterface
      * code if those contstraints fails.
      *
      * @param Symfony\Component\Form $form Form Object
+     *
+     * @return array
      */
     public function checkForm($form)
     {
@@ -270,14 +272,14 @@ class RestSubscriber implements EventSubscriberInterface
         $parameters = $event->getControllerResult();
         $restConfig = $request->attributes->get('_rest');
 
-        if ($restConfig == false) {
+        if ($restConfig === null) {
             return;
         }
 
         $accepted = $restConfig->getAcceptedContent();
         $trigger = $this->checkAcceptedContent($request, $accepted);
 
-        if ($trigger == false) {
+        if ($trigger === false) {
             return;
         }
 
