@@ -14,7 +14,6 @@ namespace WobbleCode\RestBundle\EventListener;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Util\ClassUtils;
-use WobbleCode\RestBundle\Configuration\Rest;
 use WobbleCode\RestBundle\Configuration\ConfigurationInterface;
 
 class ControllerListener
