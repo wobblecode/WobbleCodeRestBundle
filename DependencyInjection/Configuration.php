@@ -24,15 +24,12 @@ class Configuration implements ConfigurationInterface
 {
     /**
      * {@inheritDoc}
+     *
+     * @todo Create configuration tree for RestBundle
      */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('wobblecode_rest', 'array');
-
-        /**
-         * @todo Create configuration tree for RestBundle
-         */
 
         return $treeBuilder;
     }
