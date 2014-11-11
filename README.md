@@ -18,6 +18,12 @@ These are the main features:
 + Api based on content negotiation
 + Integrated with JMSSerializerBundle
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a7c1d790-2e24-49a8-830e-1770e3a9038c/mini.png)](https://insight.sensiolabs.com/projects/a7c1d790-2e24-49a8-830e-1770e3a9038c)
+[![Latest Stable Version](https://poser.pugx.org/wobblecode/rest-bundle/v/stable.svg)](https://packagist.org/packages/wobblecode/rest-bundle) 
+[![Total Downloads](https://poser.pugx.org/wobblecode/rest-bundle/downloads.svg)](https://packagist.org/packages/wobblecode/rest-bundle) 
+[![Latest Unstable Version](https://poser.pugx.org/wobblecode/rest-bundle/v/unstable.svg)](https://packagist.org/packages/wobblecode/rest-bundle) 
+[![License](https://poser.pugx.org/wobblecode/rest-bundle/license.svg)](https://packagist.org/packages/wobblecode/rest-bundle)
+
 ### Quick Example
 
 This is the most basic example of use. Just adding the Rest annotation, the api

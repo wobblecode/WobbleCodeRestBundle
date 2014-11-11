@@ -2,7 +2,7 @@
     "name": "wobblecode/rest-bundle",
     "type": "symfony-bundle",
     "description": "A bundle that creates REST Apis based on your current controllers actions",
-    "keywords": ["rest", "restful", "api", "content negotiation"],
+    "keywords": ["symfony", "rest", "restful", "api", "content negotiation"],
     "homepage": "https://github.com/wobblecode/WobbleCodeRestBundle",
     "license": "MIT",
     "authors": [
