@@ -158,7 +158,7 @@ class RestSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if ($restConfig === false) {
+        if ($restConfig === null) {
             return;
         }
 
