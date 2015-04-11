@@ -58,17 +58,19 @@ class RestSubscriber implements EventSubscriberInterface
 
     /**
      * Add metadata for limite, page and current page
-     * @todo add option to define the param that contains the metadata
+     * @todo add option to define the param that contains the metadata and
      */
     public function decoupleMetadata($object)
     {
         if (isset($object['entities']) && $object['entities'] instanceof SlidingPagination) {
             $entities = $object['entities'];
+
             return [
-                'meta' => [
-                    'total' => $entities->getTotalItemCount(),
+                'metadata' => [
+                    'count'          => $entities->count(),
+                    'total_count'    => $entities->getTotalItemCount(),
                     'items_per_page' => $entities->getItemNumberPerPage(),
-                    'page_number' => $entities->getCurrentPageNumber()
+                    'page_number'    => $entities->getCurrentPageNumber()
                 ],
                 'entities' => $entities->getItems()
             ];
@@ -341,7 +343,8 @@ class RestSubscriber implements EventSubscriberInterface
         $data = $this->serializer->serialize(
             $params,
             'json',
-            $this->serializationContext);
+            $this->serializationContext
+        );
 
         /**
          * Set response

@@ -17,6 +17,7 @@ These are the main features:
 + Version api support
 + Api based on content negotiation
 + Integrated with JMSSerializerBundle
++ Integrate with KnpPaginatorBundle to obtain metadata
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/a7c1d790-2e24-49a8-830e-1770e3a9038c/mini.png)](https://insight.sensiolabs.com/projects/a7c1d790-2e24-49a8-830e-1770e3a9038c)
 [![Latest Stable Version](https://poser.pugx.org/wobblecode/rest-bundle/v/stable.svg)](https://packagist.org/packages/wobblecode/rest-bundle) 
@@ -31,8 +32,7 @@ will be available using content negotiation. So if you request JSON, it will
 return a JSON format schema, If html is requested it will fallback in @Template
 so the related view will be rendered.
 
-It will use JSMSerializer if it's possible in
-the model as well.
+It will use JSMSerializer if it's possible in the model as well.
 
     use WobbleCode\RestBundle\Configuration\Rest;
 
@@ -46,7 +46,7 @@ the model as well.
         ...
 
         return array(
-            'entity' => $entity
+            'entities' => $entity
         );
     }
 
@@ -65,7 +65,13 @@ Example using [httpie](https://github.com/jakubroztocil/httpie)
     X-Powered-By: PHP/5.5.7
 
     {
-        "name": "Test"
+        "entities": [...],
+        "metadata": {
+            "count": 10,
+            "items_per_page": 10,
+            "page_number": 1,
+            "total_count": 244
+        }
     }
 
 
