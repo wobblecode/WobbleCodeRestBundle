@@ -57,13 +57,12 @@ class RestSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Add metadata for limite, page and current page
-     * @todo add option to define the param that contains the metadata and
+     * Add metadata for limit, page and current page
      */
-    public function decoupleMetadata($object)
+    public function decoupleMetadata($object, $paginationKey = 'entities')
     {
-        if (isset($object['entities']) && $object['entities'] instanceof SlidingPagination) {
-            $entities = $object['entities'];
+        if (isset($object[$paginationKey]) && $object[$paginationKey] instanceof SlidingPagination) {
+            $entities = $object[$paginationKey];
 
             return [
                 'metadata' => [
@@ -72,7 +71,7 @@ class RestSubscriber implements EventSubscriberInterface
                     'items_per_page' => $entities->getItemNumberPerPage(),
                     'page_number'    => $entities->getCurrentPageNumber()
                 ],
-                'entities' => $entities->getItems()
+                $paginationKey => $entities->getItems()
             ];
         }
 
