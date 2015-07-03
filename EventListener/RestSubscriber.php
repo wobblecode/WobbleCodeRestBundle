@@ -52,6 +52,7 @@ class RestSubscriber implements EventSubscriberInterface
     {
         $this->serializationContext = new SerializationContext();
         $this->serializationContext->setSerializeNull(true);
+        $this->serializationContext->enableMaxDepthChecks();
 
         $this->serializer = $serializer;
     }
