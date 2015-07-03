@@ -339,6 +339,12 @@ class RestSubscriber implements EventSubscriberInterface
          */
         $params = array_merge($params, $this->decoupleMetadata($params));
 
+        // get groups
+        $serializeGroups = $restConfig->getSerializeGroups();
+        if (count($serializeGroups)) {
+          $this->serializationContext->setGroups($serializeGroups);
+        }
+
         $data = $this->serializer->serialize(
             $params,
             'json',

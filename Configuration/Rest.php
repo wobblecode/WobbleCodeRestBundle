@@ -24,6 +24,13 @@ class Rest extends ConfigurationAnnotation
     private $output = array('entity', 'entities', 'meta');
 
     /**
+     * List of default objects to serialize, if empty it won't define a group
+     *
+     * @var array
+     */
+    private $serializeGroups = [];
+
+    /**
      * List of accepted headers that enables REST
      *
      * @var array
@@ -98,6 +105,26 @@ class Rest extends ConfigurationAnnotation
     public function getOutput()
     {
         return $this->output;
+    }
+
+    /**
+     * Set output
+     *
+     * @param array
+     */
+    public function setSerializeGroups($serializeGroups)
+    {
+        $this->serializeGroups = $serializeGroups;
+    }
+
+    /**
+     * Get output
+     *
+     * @return array
+     */
+    public function getSerializeGroups()
+    {
+        return $this->serializeGroups;
     }
 
     /**
