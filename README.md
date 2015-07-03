@@ -115,7 +115,7 @@ List of groups to use with the serializer ( see JMSSerializerBundle groups ).
 By default will serialize all groups if not defined
 
     /**
-     * @Rest(serializeGrups={"api", "ui-admin"})
+     * @Rest(serializeGroups={"api", "ui-admin"})
      */
 
 ### acceptedContent
