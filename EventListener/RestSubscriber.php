@@ -338,7 +338,8 @@ class RestSubscriber implements EventSubscriberInterface
         /**
          * It decouples KnpPaginator metadata
          */
-        $params = array_merge($params, $this->decoupleMetadata($params));
+        $metadata = array_merge_recursive($this->decoupleMetadata($params), ['metadata' => $parameters['metadata']]);
+        $params = array_merge($params, $metadata);
 
         // get groups
         $serializeGroups = $restConfig->getSerializeGroups();
