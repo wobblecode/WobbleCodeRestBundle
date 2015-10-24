@@ -145,6 +145,11 @@ class RestSubscriber implements EventSubscriberInterface
         $request->attributes->add(array('_template' => false));
     }
 
+    /**
+     * @todo decouple into HTTP Methods GET, POST, PUT, PATCH, DELETE
+     * @param  FilterResponseEvent $event [description]
+     * @return [type]                     [description]
+     */
     public function onKernelResponse(FilterResponseEvent $event)
     {
         if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
@@ -156,9 +161,9 @@ class RestSubscriber implements EventSubscriberInterface
         $restConfig = $request->attributes->get('_rest');
         $statusCode = $response->getStatusCode();
 
-        if ($request->isXmlHttpRequest()) {
-            return;
-        }
+        // if ($request->isXmlHttpRequest()) {
+        //     return;
+        // }
 
         if ($restConfig === null) {
             return;
@@ -188,7 +193,6 @@ class RestSubscriber implements EventSubscriberInterface
 
         if (preg_match('/^[3]/', $statusCode)) {
             $response->setContent(json_encode([]));
-            return;
         }
 
         if ($response->isRedirect() === false) {
@@ -214,6 +218,7 @@ class RestSubscriber implements EventSubscriberInterface
          * is some repsonse should be 200
          */
         if ($request->getMethod() == 'DELETE') {
+            $response->setContent(json_encode([]));
             $response->setStatusCode(204);
         }
 
