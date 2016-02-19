@@ -93,6 +93,10 @@ class RestSubscriber implements EventSubscriberInterface
             return true;
         }
 
+        if ("*/*" === $request->headers->get('Accept')) {
+            return true;
+        }
+
         foreach ($acceptedContent as $k => $v) {
             $triggered = preg_match('/'.preg_quote($v, '/').'/i', $request->headers->get('Accept'));
             if ($triggered) {
