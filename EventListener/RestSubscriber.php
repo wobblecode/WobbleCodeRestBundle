@@ -146,7 +146,7 @@ class RestSubscriber implements EventSubscriberInterface
         /**
          * Remove controller _template to avoid the lookup
          */
-        $request->attributes->add(array('_template' => false));
+        $request->attributes->add(array('_template' => null));
     }
 
     /**
