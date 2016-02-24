@@ -87,7 +87,7 @@ class RestSubscriber implements EventSubscriberInterface
      * @return Mixed false or string with content accepted or true if all is
      * accepted
      */
-    public function checkAcceptedContent(Request $request, Array $acceptedContent)
+    public function checkAcceptedContent(Request $request, array $acceptedContent)
     {
         if (in_array('all', $acceptedContent)) {
             return true;
@@ -97,7 +97,7 @@ class RestSubscriber implements EventSubscriberInterface
             return true;
         }
 
-        foreach ($acceptedContent as $k => $v) {
+        foreach ($acceptedContent as $v) {
             $triggered = preg_match('/'.preg_quote($v, '/').'/i', $request->headers->get('Accept'));
             if ($triggered) {
                 return $v;
@@ -258,7 +258,7 @@ class RestSubscriber implements EventSubscriberInterface
      */
     public function checkForm($form)
     {
-        $errors = array();
+        $errors = [];
 
         foreach ($form->vars['errors'] as $error) {
             $errors['main'][] = $error->getMessage();
@@ -354,10 +354,13 @@ class RestSubscriber implements EventSubscriberInterface
             $params = array_merge_recursive($params, ['metadata' => $parameters['metadata']]);
         }
 
-        // get groups
+        /**
+         * Proces serializer groups
+         */
         $serializeGroups = $restConfig->getSerializeGroups();
+
         if (count($serializeGroups)) {
-          $this->serializationContext->setGroups($serializeGroups);
+            $this->serializationContext->setGroups($serializeGroups);
         }
 
         $data = $this->serializer->serialize(
