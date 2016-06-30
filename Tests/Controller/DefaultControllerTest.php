@@ -13,10 +13,14 @@ namespace WobbleCode\RestBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DefaultControllerTest extends WebTestCase
+class RestControllerTest extends WebTestCase
 {
-    public function testIndex()
+    public function testGetItem()
     {
-      $this->assertTrue(true);
+        $client = static::createClient();
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        // $crawler = $client->request('GET', '/');
+        // $this->assertContains('hello', $crawler->filter('#container h1')->text());
     }
 }

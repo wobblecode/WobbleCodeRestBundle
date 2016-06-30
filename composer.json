@@ -31,7 +31,10 @@
         "symfony/validator": "*"
     },
     "autoload": {
-        "psr-0": { "WobbleCode\\RestBundle": "" }
+        "psr-4": { "WobbleCode\\RestBundle\\": "" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Tests\\Fixtures\\": "Tests/Fixtures/" }
     },
     "minimum-stability": "dev",
     "target-dir": "WobbleCode/RestBundle",
