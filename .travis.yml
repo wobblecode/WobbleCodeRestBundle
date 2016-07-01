@@ -17,6 +17,9 @@ env:
   global:
     - deps=no
 
+before_script:
+  - phpenv config-rm xdebug.ini
+
 before_install:
   - travis_retry composer self-update
 
