@@ -19,7 +19,7 @@ class RestController
     ];
 
     /**
-     * @Rest(defaultAccept="application/json")
+     * @Rest()
      * @Route("/basic/1")
      * @Template("FooBundle:Rest:item.html.twig")
      */

@@ -15,23 +15,38 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class RestControllerTest extends WebTestCase
 {
-    public function testGetItem()
+    /**
+     * @dataProvider urlsProvider
+     */
+    public function testRestTriggering($url, $accept, $expected)
     {
         $client = static::createClient();
         $client->request(
             'GET',
-            '/default/1',
+            $url,
             [],
             [],
             [
-                'HTTP_ACCEPT' => 'application/json',
+                'HTTP_ACCEPT' => $accept,
                 'CONTENT_TYPE' => 'application/json'
             ]
         );
 
-        echo $client->getResponse()->getContent(); die();
-
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Hello Luis', $client->getResponse()->getContent());
+        $this->assertContains($expected, $client->getResponse()->getContent());
+    }
+
+    public function urlsProvider()
+    {
+        return [
+            ['basic/1', 'text/html', 'Hello Luis'],
+            ['basic/1', 'application/json', '{"entity":{"name":"Luis"}}'],
+            ['basic/1', null, 'Hello Luis'],
+            ['default/1', 'text/html', 'Hello Luis'],
+            ['default/1', null, '{"entity":{"name":"Luis"}}'],
+            ['all/1', 'text/html', '{"entity":{"name":"Luis"}}'],
+            ['all/1', 'application/json', '{"entity":{"name":"Luis"}}'],
+            ['all/1', null, '{"entity":{"name":"Luis"}}']
+        ];
     }
 }
