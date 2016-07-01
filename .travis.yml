@@ -1,4 +1,4 @@
- language: php
+language: php
 
 sudo: false
 
@@ -13,12 +13,6 @@ php:
   - 7.0
   - hhvm
 
-matrix:
-  include:
-    - php: 5.4
-      env: deps=low
-  fast_finish: true
-
 env:
   global:
     - deps=no
@@ -28,5 +22,4 @@ before_install:
 
 install:
   - if [[ "$TRAVIS_PHP_VERSION" != "5.3" ]] && [[ "$TRAVIS_PHP_VERSION" != "5.4" ]]; then composer require --no-update symfony/psr-http-message-bridge zendframework/zend-diactoros; fi;
-  - if [ "$deps" = "no" ]; then composer --prefer-source install; fi;
-  - if [ "$deps" = "low" ]; then composer --prefer-source --prefer-lowest --prefer-stable update; fi;
+  - composer --prefer-source install
