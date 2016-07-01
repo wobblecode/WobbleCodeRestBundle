@@ -47,4 +47,14 @@ class RestController
     {
         return $this->return;
     }
+
+    /**
+     * @Rest(acceptedContent={"all"}, defaultAccept="application/json")
+     * @Route("/mix/1")
+     * @Template("FooBundle:Rest:item.html.twig")
+     */
+    public function getMixAction()
+    {
+        return $this->return;
+    }
 }
