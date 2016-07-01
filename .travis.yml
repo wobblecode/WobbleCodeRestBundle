@@ -20,9 +20,6 @@ env:
 before_script:
   - phpenv config-rm xdebug.ini
 
-before_install:
-  - travis_retry composer self-update
-
 install:
   - if [[ "$TRAVIS_PHP_VERSION" != "5.3" ]] && [[ "$TRAVIS_PHP_VERSION" != "5.4" ]]; then composer require --no-update symfony/psr-http-message-bridge zendframework/zend-diactoros; fi;
   - composer --prefer-dist install
