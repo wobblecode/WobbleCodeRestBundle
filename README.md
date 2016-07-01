@@ -75,7 +75,7 @@ Example using [httpie](https://github.com/jakubroztocil/httpie)
     }
 
 
-## Setup
+## Setup
 
 ### Add to composer
 
@@ -89,7 +89,7 @@ Example using [httpie](https://github.com/jakubroztocil/httpie)
 
 **All examples shows the default values.**
 
-### output
+### output
 
 List of default objects to serialize from the returned array.
 
@@ -118,7 +118,7 @@ By default will serialize all groups if not defined
      * @Rest(serializeGroups={"api", "ui-admin"})
      */
 
-### acceptedContent
+### acceptedContent
 
 List of accepted headers that enables REST
 
@@ -129,7 +129,7 @@ List of accepted headers that enables REST
 You will have to send `Accept: application/json` in order to enable the REST api
 functionality. If there is no match, it will fallback to the controller view.
 
-### defaultAccept
+### defaultAccept
 
 If Accept header is missing you can set a default value with defaultAccept
 
@@ -140,7 +140,7 @@ If Accept header is missing you can set a default value with defaultAccept
 If the Accept header is missing the default value is
 `text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8`
 
-### payloadMapping
+### payloadMapping
 
 Defines if the payload is assigned to a POST value. This is useful because
 forms are usually expecting to be received under a POST variable with the name
@@ -184,16 +184,16 @@ Define the default version of the api, false as default for no versioning
 
 Intercept 3xx redirects and responds with flash messages
 
-### processForms
+### processForms
 
 Process forms errors
 
-### defaultFormParam
+### defaultFormParam
 
 Process params with name form as principal Form for validation
 
 ## License
 
-Copyright (c) 2014 Luis Hdez
+Copyright (c) 2016 Luis Hdez
 
 Released under MIT LICENSE, more info at LICENSE-MIT file.
