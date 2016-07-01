@@ -129,6 +129,17 @@ List of accepted headers that enables REST
 You will have to send `Accept: application/json` in order to enable the REST api
 functionality. If there is no match, it will fallback to the controller view.
 
+### defaultAccept
+
+If Accept header is missing you can set a default value with defaultAccept
+
+    /**
+     * @Rest(defaultAccept="application/json")
+     */
+
+If the Accept header is missing the default value is
+`text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8`
+
 ### payloadMapping
 
 Defines if the payload is assigned to a POST value. This is useful because

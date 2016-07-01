@@ -24,9 +24,6 @@ use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializationContext;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 
-/**
- * @todo add KernelException subscription in order to control all exceptions
- */
 class RestSubscriber implements EventSubscriberInterface
 {
     /**
