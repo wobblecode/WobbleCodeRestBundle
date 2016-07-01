@@ -17,10 +17,13 @@ class RestControllerTest extends WebTestCase
 {
     public function testGetItem()
     {
-        $client = static::createClient();
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $client = static::createClient(['environment' => 'test', 'debug' => true]);
+        $client->enableProfiler();
+        $crawler = $client->request('GET', '/1');
 
-        // $crawler = $client->request('GET', '/');
-        // $this->assertContains('hello', $crawler->filter('#container h1')->text());
+        echo $client->getResponse()->getContent(); die;
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertContains('hello', $crawler->filter('#container h1')->text());
     }
 }

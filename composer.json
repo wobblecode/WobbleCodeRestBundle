@@ -12,14 +12,16 @@
         }
     ],
     "require": {
-        "php": ">=5.5",
-        "jms/serializer-bundle": "~1.1.0",
-        "symfony/framework-bundle": ">=2.1",
-        "willdurand/negotiation": "@stable"
+        "php": ">=5.4",
+        "symfony/framework-bundle": "~2.3|~3.0",
+        "symfony/dependency-injection": "~2.3|~3.0",
+        "willdurand/negotiation": "2.0.2",
+        "doctrine/common": "~2.2"
     },
     "require-dev": {
         "symfony/yaml": "*",
         "symfony/browser-kit": "*",
+        "sensio/framework-extra-bundle": "*",
         "symfony/class-loader": "*",
         "symfony/finder": "*",
         "symfony/css-selector": "*",
@@ -28,7 +30,11 @@
         "symfony/twig-bundle": "*",
         "doctrine/orm": "*",
         "symfony/form": "*",
-        "symfony/validator": "*"
+        "symfony/validator": "*",
+        "jms/serializer-bundle": "~1.1.0"
+    },
+    "suggest": {
+        "jms/serializer-bundle": "~1.1.0"
     },
     "autoload": {
         "psr-4": { "WobbleCode\\RestBundle\\": "" }
