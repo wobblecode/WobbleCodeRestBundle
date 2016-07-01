@@ -93,10 +93,6 @@ class RestSubscriber implements EventSubscriberInterface
             return true;
         }
 
-        if ("*/*" === $request->headers->get('Accept')) {
-            return true;
-        }
-
         foreach ($acceptedContent as $v) {
             $triggered = preg_match('/'.preg_quote($v, '/').'/i', $request->headers->get('Accept'));
             if ($triggered) {
@@ -113,7 +109,7 @@ class RestSubscriber implements EventSubscriberInterface
 
         if ($this->checkAcceptedContent($request, ['application/json'])) {
             $request->setRequestFormat('json');
-            $request->attributes->add(array('_format' => 'json'));
+            $request->attributes->add(['_format' => 'json']);
         }
     }
 
@@ -124,6 +120,10 @@ class RestSubscriber implements EventSubscriberInterface
 
         if ($restConfig === null) {
             return;
+        }
+
+        if (!$request->headers->get('Accept')) {
+            $request->headers->set('Accept', $restConfig->getDefaultAccept());
         }
 
         $trigger = $this->checkAcceptedContent(
@@ -152,6 +152,7 @@ class RestSubscriber implements EventSubscriberInterface
     /**
      * @todo decouple into HTTP Methods GET, POST, PUT, PATCH, DELETE
      * @param  FilterResponseEvent $event [description]
+     *
      * @return [type]                     [description]
      */
     public function onKernelResponse(FilterResponseEvent $event)
@@ -164,10 +165,6 @@ class RestSubscriber implements EventSubscriberInterface
         $request = $event->getRequest();
         $restConfig = $request->attributes->get('_rest');
         $statusCode = $response->getStatusCode();
-
-        // if ($request->isXmlHttpRequest()) {
-        //     return;
-        // }
 
         if ($restConfig === null) {
             return;
@@ -264,7 +261,7 @@ class RestSubscriber implements EventSubscriberInterface
             $errors['main'][] = $error->getMessage();
         }
 
-        foreach ($form as $key => $v) {
+        foreach ($form as $v) {
             if (isset($v->vars['errors']) && $v->vars['errors']) {
                 foreach ($v->vars['errors'] as $error) {
                     $errors['fields'][$v->vars['name']][] = $error->getMessage();
@@ -381,10 +378,10 @@ class RestSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            KernelEvents::REQUEST => array('onKernelRequest', 0),
-            KernelEvents::CONTROLLER => array('postAnnotations', 0),
-            KernelEvents::RESPONSE => array('onKernelResponse', 0),
-            KernelEvents::VIEW => array('onKernelView', 100),
+            KernelEvents::REQUEST => ['onKernelRequest', 0],
+            KernelEvents::CONTROLLER => ['postAnnotations', 0],
+            KernelEvents::RESPONSE => ['onKernelResponse', 0],
+            KernelEvents::VIEW => ['onKernelView', 100],
         );
     }
 }

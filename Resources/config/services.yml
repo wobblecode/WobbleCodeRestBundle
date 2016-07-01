@@ -1,13 +1,10 @@
-
 services:
-
     wobblecode.restbundle.listener.controller:
         class: WobbleCode\RestBundle\EventListener\ControllerListener
         arguments:
             - "@annotation_reader"
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
-
     wobblecode.restbundle.rest_suscriber:
         class: WobbleCode\RestBundle\EventListener\RestSubscriber
         arguments:

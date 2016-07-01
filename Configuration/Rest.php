@@ -31,11 +31,18 @@ class Rest extends ConfigurationAnnotation
     private $serializeGroups = [];
 
     /**
+     * In case Accept header is missing from request we will use this
+     *
+     * @var string
+     */
+    private $defaultAccept = ['text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'];
+
+    /**
      * List of accepted headers that enables REST
      *
      * @var array
      */
-    private $acceptedContent = array('application/json');
+    private $acceptedContent = ['application/json'];
 
     /**
      * Define if the payload is assigned to a form based in its name
@@ -145,6 +152,26 @@ class Rest extends ConfigurationAnnotation
     public function getAcceptedContent()
     {
         return $this->acceptedContent;
+    }
+
+    /**
+     * Set defaultAccept
+     *
+     * @param array
+     */
+    public function setDefaultAccept($defaultAccept)
+    {
+        $this->defaultAccept = $defaultAccept;
+    }
+
+    /**
+     * Get DefaultAccept
+     *
+     * @return array
+     */
+    public function getDefaultAccept()
+    {
+        return $this->defaultAccept;
     }
 
     /**

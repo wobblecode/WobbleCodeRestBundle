@@ -18,7 +18,18 @@ class RestControllerTest extends WebTestCase
     public function testGetItem()
     {
         $client = static::createClient();
-        $client->request('GET', '/1');
+        $client->request(
+            'GET',
+            '/default/1',
+            [],
+            [],
+            [
+                'HTTP_ACCEPT' => 'application/json',
+                'CONTENT_TYPE' => 'application/json'
+            ]
+        );
+
+        echo $client->getResponse()->getContent(); die();
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('Hello Luis', $client->getResponse()->getContent());

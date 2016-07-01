@@ -1,3 +1,6 @@
+imports:
+    - { resource: ../../../Resources/config/services.yml }
+
 framework:
     test: true
     secret: test
