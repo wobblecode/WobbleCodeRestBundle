@@ -19,11 +19,11 @@ These are the main features:
 + Integrated with JMSSerializerBundle
 + Integrate with KnpPaginatorBundle to obtain metadata
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a7c1d790-2e24-49a8-830e-1770e3a9038c/mini.png)](https://insight.sensiolabs.com/projects/a7c1d790-2e24-49a8-830e-1770e3a9038c)
 [![Latest Stable Version](https://poser.pugx.org/wobblecode/rest-bundle/v/stable.svg)](https://packagist.org/packages/wobblecode/rest-bundle)
 [![Total Downloads](https://poser.pugx.org/wobblecode/rest-bundle/downloads.svg)](https://packagist.org/packages/wobblecode/rest-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/wobblecode/rest-bundle/v/unstable.svg)](https://packagist.org/packages/wobblecode/rest-bundle)
+[![Travis](https://travis-ci.org/wobblecode/WobbleCodeRestBundle.svg)](https://travis-ci.org/wobblecode/WobbleCodeRestBundle/builds)
 [![License](https://poser.pugx.org/wobblecode/rest-bundle/license.svg)](https://packagist.org/packages/wobblecode/rest-bundle)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a7c1d790-2e24-49a8-830e-1770e3a9038c/mini.png)](https://insight.sensiolabs.com/projects/a7c1d790-2e24-49a8-830e-1770e3a9038c)
 
 ### Quick Example
 
