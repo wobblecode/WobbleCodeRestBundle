@@ -18,7 +18,9 @@ class RestController
     public function getItemAction()
     {
         return [
-            'name' => 'luis'
+            'entity' => [
+                'name' => 'Luis'
+            ]
         ];
     }
 }
