@@ -46,4 +46,19 @@ class Task
     {
         return $this->title;
     }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getCompletedAt()
+    {
+        return $this->completedAt;
+    }
+
+    public function getCompleted()
+    {
+        return $this->completed;
+    }
 }
