@@ -31,11 +31,17 @@ class JMSSerializerParamConverter implements ParamConverterInterface
     private $serializer;
 
     /**
+     * @var Validator
+     */
+    private $validator;
+
+    /**
      * @param Serializer $serializer JMS Serializer
      */
-    public function __construct(Serializer $serializer)
+    public function __construct(Serializer $serializer, $validator = null)
     {
         $this->serializer = $serializer;
+        $this->validator = $validator;
     }
 
     /**
@@ -46,6 +52,10 @@ class JMSSerializerParamConverter implements ParamConverterInterface
     public function supports(ParamConverter $configuration)
     {
         if (null === $configuration->getClass()) {
+            return false;
+        }
+
+        if ($configuration->getClass() == 'Symfony\Component\HttpKernel\Log\DebugLoggerInterface') {
             return false;
         }
 
@@ -64,6 +74,8 @@ class JMSSerializerParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
+        // if validate true
+
         $object = $this->serializer->deserialize($request->getContent(), $this->class, 'json');
         $request->attributes->set($configuration->getName(), $object);
     }
