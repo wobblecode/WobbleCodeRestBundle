@@ -19,10 +19,12 @@ use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializationContext;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use WobbleCode\RestBundle\Exception\ValidationException;
 
 class RestSubscriber implements EventSubscriberInterface
 {
@@ -144,6 +146,16 @@ class RestSubscriber implements EventSubscriberInterface
          * Remove controller _template to avoid the lookup
          */
         $request->attributes->add(array('_template' => null));
+
+        /**
+         * Check for payload validations
+         */
+
+        $payloadErrors = $request->attributes->get('_payload_validation_errors');
+        throw new ValidationException($payloadErrors);
+
+        if ($payloadErrors) {
+        }
     }
 
     /**
@@ -372,9 +384,27 @@ class RestSubscriber implements EventSubscriberInterface
         $event->setResponse($response);
     }
 
+    public function onValidationError(GetResponseForExceptionEvent $event)
+    {
+        $exception = $event->getException();
+
+        if ($exception instanceof ValidationException == false) {
+            return;
+        }
+
+        $errors = $exception->getErrors();
+
+        $response = new Response();
+        $response->setContent(json_encode(['errors' => $errors]));
+        $response->headers->set('Content-Type', 'application/json');
+
+        $event->setResponse($response);
+    }
+
     public static function getSubscribedEvents()
     {
         return array(
+            KernelEvents::EXCEPTION => ['onValidationError', 0],
             KernelEvents::REQUEST => ['onKernelRequest', 0],
             KernelEvents::CONTROLLER => ['postAnnotations', 0],
             KernelEvents::RESPONSE => ['onKernelResponse', 0],

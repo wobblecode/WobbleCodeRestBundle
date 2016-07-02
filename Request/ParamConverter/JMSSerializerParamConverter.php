@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializationContext;
+use WobbleCode\RestBundle\Mapper\MapperInterface;
 
 class JMSSerializerParamConverter implements ParamConverterInterface
 {
@@ -36,12 +37,21 @@ class JMSSerializerParamConverter implements ParamConverterInterface
     private $validator;
 
     /**
+     * @var MapperInterface
+     */
+    private $errorMapper;
+
+    /**
      * @param Serializer $serializer JMS Serializer
      */
-    public function __construct(Serializer $serializer, $validator = null)
-    {
+    public function __construct(
+        Serializer $serializer,
+        $validator = null,
+        $errorMapper = null
+    ) {
         $this->serializer = $serializer;
         $this->validator = $validator;
+        $this->errorMapper = $errorMapper;
     }
 
     /**
@@ -78,27 +88,15 @@ class JMSSerializerParamConverter implements ParamConverterInterface
         $object = $this->serializer->deserialize($request->getContent(), $this->class, 'json');
         $object->__construct();
 
-        // {
-        //     "errors": {
-        //         "fields": {
-        //             "to": [
-        //                 "This value should not be blank."
-        //             ]
-        //         }
-        //     }
-        // }
         if (isset($options['validation']) && $options['validation']) {
             $errors = $this->validator->validate($object);
 
             if (count($errors) > 0) {
-                $errorsMap = [];
-                foreach ($errors as $error) {
-                    $errorsMap['fields'][$error->getPropertyPath()][] = $error->getMessage();
-                }
+                $mappedErrors = $this->errorMapper->map($errors);
+                $request->attributes->set('_payload_validation_errors', $mappedErrors);
             }
         }
 
-        $request->attributes->set('_payload_validation_errors', $errorsMap);
         $request->attributes->set($configuration->getName(), $object);
     }
 }

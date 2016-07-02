@@ -1,4 +1,6 @@
 services:
+    wobblecode.restbundle.mapper.validator_error:
+        class: WobbleCode\RestBundle\Mapper\ValidatorErrorMapper
     wobblecode.restbundle.param_converter.jms_serializer:
         class: WobbleCode\RestBundle\Request\ParamConverter\JMSSerializerParamConverter
         tags:
@@ -6,6 +8,7 @@ services:
         arguments:
             - "@jms_serializer.serializer"
             - "@validator"
+            - "@wobblecode.restbundle.mapper.validator_error"
     wobblecode.restbundle.listener.controller:
         class: WobbleCode\RestBundle\EventListener\ControllerListener
         arguments:
