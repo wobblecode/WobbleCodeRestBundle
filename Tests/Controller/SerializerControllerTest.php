@@ -57,7 +57,13 @@ class DeserializeControllerTest extends WebTestCase
             ['POST', 'deserialize/1', 'application/json', '"completed":true', json_encode($task)],
             ['POST', 'deserialize/1', 'text/html', 'Task My Task', json_encode($task)],
             ['POST', 'deserialize-validation/1', 'application/json', 'completed":true', json_encode($task)],
-            ['POST', 'deserialize-validation/1', 'application/json', 'completed":false', json_encode($taskInvalid)],
+            [
+                'POST',
+                'deserialize-validation/1',
+                'application/json',
+                'This value should not be blank',
+                json_encode($taskInvalid), 422
+            ]
         ];
     }
 }

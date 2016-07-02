@@ -150,11 +150,10 @@ class RestSubscriber implements EventSubscriberInterface
         /**
          * Check for payload validations
          */
-
         $payloadErrors = $request->attributes->get('_payload_validation_errors');
-        throw new ValidationException($payloadErrors);
 
         if ($payloadErrors) {
+            throw new ValidationException($payloadErrors);
         }
     }
 
@@ -406,7 +405,7 @@ class RestSubscriber implements EventSubscriberInterface
         return array(
             KernelEvents::EXCEPTION => ['onValidationError', 0],
             KernelEvents::REQUEST => ['onKernelRequest', 0],
-            KernelEvents::CONTROLLER => ['postAnnotations', 0],
+            KernelEvents::CONTROLLER => ['postAnnotations', -1],
             KernelEvents::RESPONSE => ['onKernelResponse', 0],
             KernelEvents::VIEW => ['onKernelView', 100],
         );
