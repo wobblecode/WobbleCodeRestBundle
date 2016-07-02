@@ -1,4 +1,10 @@
 services:
+    wobblecode.restbundle.param_converter.jms_serializer:
+        class: WobbleCode\RestBundle\Request\ParamConverter\JMSSerializerParamConverter
+        tags:
+            - { name: request.param_converter, converter: jms_serializer }
+        arguments:
+            - "@jms_serializer.serializer"
     wobblecode.restbundle.listener.controller:
         class: WobbleCode\RestBundle\EventListener\ControllerListener
         arguments:

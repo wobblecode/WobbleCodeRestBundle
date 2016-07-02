@@ -18,7 +18,7 @@ class DeserializeControllerTest extends WebTestCase
     /**
      * @dataProvider urlsProvider
      */
-    public function testSerializationTriggering($method, $url, $accept, $expected)
+    public function testSerializationTriggering($method, $url, $accept, $expected, $data = null, $code = 200)
     {
         $client = static::createClient();
         $client->request(
@@ -29,18 +29,23 @@ class DeserializeControllerTest extends WebTestCase
             [
                 'HTTP_ACCEPT' => $accept,
                 'CONTENT_TYPE' => 'application/json'
-            ]
+            ],
+            $data
         );
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals($code, $client->getResponse()->getStatusCode());
         $this->assertContains($expected, $client->getResponse()->getContent());
     }
 
     public function urlsProvider()
     {
+        $task = ['title' => 'My Task'];
+
         return [
-            ['POST', 'serialize/1', 'application/json', '"title":"Untitled"'],
-            ['POST', 'serialize/1', 'text/html', 'Task Untitled']
+            ['POST', 'serialize/1', 'application/json', '"title":"Untitled"', null],
+            ['POST', 'serialize/1', 'text/html', 'Task Untitled', null],
+            ['POST', 'deserialize/1', 'application/json', '"title":"Untitled"', null],
+            ['POST', 'deserialize/1', 'application/json', '"title":"My Task"', json_encode($task)]
         ];
     }
 }
