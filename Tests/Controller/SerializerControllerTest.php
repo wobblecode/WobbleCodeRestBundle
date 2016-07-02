@@ -39,13 +39,18 @@ class DeserializeControllerTest extends WebTestCase
 
     public function urlsProvider()
     {
-        $task = ['title' => 'My Task'];
+        $task = [
+            'title' => 'My Task',
+            'completed' => true
+        ];
 
         return [
             ['POST', 'serialize/1', 'application/json', '"title":"Untitled"', null],
             ['POST', 'serialize/1', 'text/html', 'Task Untitled', null],
             ['POST', 'deserialize/1', 'application/json', '"title":"Untitled"', null],
-            ['POST', 'deserialize/1', 'application/json', '"title":"My Task"', json_encode($task)]
+            ['POST', 'deserialize/1', 'application/json', '"title":"My Task"', json_encode($task)],
+            ['POST', 'deserialize/1', 'application/json', '"completed":true', json_encode($task)],
+            ['POST', 'deserialize/1', 'text/html', 'Task My Task', json_encode($task)]
         ];
     }
 }
