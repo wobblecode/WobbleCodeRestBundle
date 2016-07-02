@@ -18,5 +18,6 @@ env:
     - deps=no
 
 install:
+  - rm /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini  
   - if [[ "$TRAVIS_PHP_VERSION" != "5.3" ]] && [[ "$TRAVIS_PHP_VERSION" != "5.4" ]]; then composer require --no-update symfony/psr-http-message-bridge zendframework/zend-diactoros; fi;
   - composer --prefer-dist install
