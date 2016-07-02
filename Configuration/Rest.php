@@ -21,7 +21,7 @@ class Rest extends ConfigurationAnnotation
      *
      * @var array
      */
-    private $output = array('entity', 'entities', 'metadata');
+    private $output = ['entity', 'entities', 'metadata'];
 
     /**
      * List of default objects to serialize, if empty it won't define a group
