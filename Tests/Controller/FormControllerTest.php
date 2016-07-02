@@ -13,7 +13,7 @@ namespace WobbleCode\RestBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class SerializeControllerTest extends WebTestCase
+class FormControllerTest extends WebTestCase
 {
     /**
      * @dataProvider urlsProvider
@@ -33,6 +33,8 @@ class SerializeControllerTest extends WebTestCase
             $data
         );
 
+        echo $client->getResponse()->getContent(); die();
+
         $this->assertEquals($code, $client->getResponse()->getStatusCode());
         $this->assertContains($expected, $client->getResponse()->getContent());
     }
@@ -50,19 +52,13 @@ class SerializeControllerTest extends WebTestCase
         ];
 
         return [
-            ['POST', 'serialize/1', 'application/json', '"title":"Untitled"', null],
-            ['POST', 'serialize/1', 'text/html', 'Task Untitled', null],
-            ['POST', 'deserialize/1', 'application/json', '"title":"Untitled"', null],
-            ['POST', 'deserialize/1', 'application/json', '"title":"My Task"', json_encode($task)],
-            ['POST', 'deserialize/1', 'application/json', '"completed":true', json_encode($task)],
-            ['POST', 'deserialize/1', 'text/html', 'Task My Task', json_encode($task)],
-            ['POST', 'deserialize-validation/1', 'application/json', 'completed":true', json_encode($task)],
             [
                 'POST',
-                'deserialize-validation/1',
+                '/form/create/',
                 'application/json',
                 'This value should not be blank',
-                json_encode($taskInvalid), 422
+                $taskInvalid,
+                422
             ]
         ];
     }

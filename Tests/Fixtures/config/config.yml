@@ -2,6 +2,9 @@ imports:
     - { resource: ../../../Resources/config/services.yml }
 
 framework:
+    form: null
+    session: null
+    csrf_protection: true
     validation:
         enable_annotations: true
     test: true

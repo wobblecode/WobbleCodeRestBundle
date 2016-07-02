@@ -222,10 +222,6 @@ class RestSubscriber implements EventSubscriberInterface
             $response->setStatusCode(200);
         }
 
-        /**
-         * @todo check if there is no content in the response for 204 if there
-         * is some repsonse should be 200
-         */
         if ($request->getMethod() == 'DELETE') {
             $response->setContent(json_encode([]));
             $response->setStatusCode(204);
@@ -236,8 +232,6 @@ class RestSubscriber implements EventSubscriberInterface
 
     /**
      * Add No cache headers
-     *
-     * @todo add feature to control cache
      *
      * @param Response $response
      */
@@ -301,8 +295,7 @@ class RestSubscriber implements EventSubscriberInterface
          * Process form
          */
         if ($restConfig->getProcessForms()) {
-
-            $formErrors = array();
+            $formErrors = [];
             $form = false;
 
             $defaultFormParam = $restConfig->getDefaultFormParam();
@@ -316,26 +309,7 @@ class RestSubscriber implements EventSubscriberInterface
             }
 
             if ($formErrors) {
-
-                $content = array(
-                    'errors' => $formErrors
-                );
-
-                $data = $this->serializer->serialize(
-                    $content,
-                    'json',
-                    $this->serializationContext
-                );
-
-                $request->setRequestFormat('json');
-
-                $response = new Response();
-                $response->setContent($data);
-                $response->setStatusCode(400);
-                $response->headers->set('Content-Type', 'application/json');
-                $this->addNoCacheHeaders($response);
-                $event->setResponse($response);
-                return;
+                throw new ValidationException($formErrors);
             }
 
             unset($parameters[$defaultFormParam]);
