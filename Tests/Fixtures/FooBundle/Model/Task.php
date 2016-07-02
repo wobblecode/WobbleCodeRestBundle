@@ -54,7 +54,7 @@ class Task
 
     /**
      * @Type("boolean")
-     * @Assert\Type("bool")
+     * @Assert\Type("boolean")
      */
     private $completed = false;
 

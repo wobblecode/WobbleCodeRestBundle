@@ -74,9 +74,31 @@ class JMSSerializerParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
-        // if validate true
-
+        $options = $configuration->getOptions();
         $object = $this->serializer->deserialize($request->getContent(), $this->class, 'json');
+        $object->__construct();
+
+        // {
+        //     "errors": {
+        //         "fields": {
+        //             "to": [
+        //                 "This value should not be blank."
+        //             ]
+        //         }
+        //     }
+        // }
+        if (isset($options['validation']) && $options['validation']) {
+            $errors = $this->validator->validate($object);
+
+            if (count($errors) > 0) {
+                $errorsMap = [];
+                foreach ($errors as $error) {
+                    $errorsMap['fields'][$error->getPropertyPath()][] = $error->getMessage();
+                }
+            }
+        }
+
+        $request->attributes->set('_payload_validation_errors', $errorsMap);
         $request->attributes->set($configuration->getName(), $object);
     }
 }

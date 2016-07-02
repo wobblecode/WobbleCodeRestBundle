@@ -44,13 +44,20 @@ class DeserializeControllerTest extends WebTestCase
             'completed' => true
         ];
 
+        $taskInvalid = [
+            'title' => '',
+            'priority' => 100
+        ];
+
         return [
             ['POST', 'serialize/1', 'application/json', '"title":"Untitled"', null],
             ['POST', 'serialize/1', 'text/html', 'Task Untitled', null],
             ['POST', 'deserialize/1', 'application/json', '"title":"Untitled"', null],
             ['POST', 'deserialize/1', 'application/json', '"title":"My Task"', json_encode($task)],
             ['POST', 'deserialize/1', 'application/json', '"completed":true', json_encode($task)],
-            ['POST', 'deserialize/1', 'text/html', 'Task My Task', json_encode($task)]
+            ['POST', 'deserialize/1', 'text/html', 'Task My Task', json_encode($task)],
+            ['POST', 'deserialize-validation/1', 'application/json', 'completed":true', json_encode($task)],
+            ['POST', 'deserialize-validation/1', 'application/json', 'completed":false', json_encode($taskInvalid)],
         ];
     }
 }

@@ -43,4 +43,26 @@ class SerializerController
             'entity' => $task
         ];
     }
+
+    /**
+     * @ParamConverter(
+     *     "task",
+     *     class="Tests\Fixtures\FooBundle\Model\Task",
+     *     converter="jms_serializer",
+     *     options={
+     *         "validation"=true,
+     *     	   "validationGroups"={"Default", "api"}
+     *     })
+     * )
+     * @Rest()
+     * @Route("/deserialize-validation/1")
+     * @Method("POST")
+     * @Template("FooBundle:Serializer:task.html.twig")
+     */
+    public function createParamValidationTaskAction(Task $task)
+    {
+        return [
+            'entity' => $task
+        ];
+    }
 }

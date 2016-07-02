@@ -2,6 +2,8 @@ imports:
     - { resource: ../../../Resources/config/services.yml }
 
 framework:
+    validation:
+        enable_annotations: true
     test: true
     secret: test
     templating:

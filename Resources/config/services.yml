@@ -5,7 +5,7 @@ services:
             - { name: request.param_converter, converter: jms_serializer }
         arguments:
             - "@jms_serializer.serializer"
-            - "?validator"
+            - "@validator"
     wobblecode.restbundle.listener.controller:
         class: WobbleCode\RestBundle\EventListener\ControllerListener
         arguments:
