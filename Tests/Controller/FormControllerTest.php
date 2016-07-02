@@ -24,13 +24,12 @@ class FormControllerTest extends WebTestCase
         $client->request(
             $method,
             $url,
-            [],
+            $data,
             [],
             [
                 'HTTP_ACCEPT' => $accept,
                 'CONTENT_TYPE' => 'application/json'
-            ],
-            $data
+            ]
         );
 
         echo $client->getResponse()->getContent(); die();
@@ -41,12 +40,12 @@ class FormControllerTest extends WebTestCase
 
     public function urlsProvider()
     {
-        $task = [
+        $task['task'] = [
             'title' => 'My Task',
             'completed' => true
         ];
 
-        $taskInvalid = [
+        $taskInvalid['task'] = [
             'title' => '',
             'priority' => 100
         ];
@@ -55,7 +54,7 @@ class FormControllerTest extends WebTestCase
             [
                 'POST',
                 '/form/create/',
-                'application/json',
+                'text/html',
                 'This value should not be blank',
                 $taskInvalid,
                 422

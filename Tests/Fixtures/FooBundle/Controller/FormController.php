@@ -28,14 +28,15 @@ class FormController extends Controller
     {
         $task = new Task;
 
-        $this->createForm(new TaskType, $task, array(
+        $form = $this->createForm('Tests\Fixtures\FooBundle\Form\Type\TaskType', $task, array(
             'method'             => 'POST',
             'action'             => $this->generateUrl('form_create'),
-            'validation_groups'  => [],
-            'cascade_validation' => true
+            'validation_groups'  => []
         ));
 
         $form->handleRequest($request);
+
+        var_dump($request->request->all());
 
         if ($form->isSubmitted() && $form->isValid()) {
             return [
