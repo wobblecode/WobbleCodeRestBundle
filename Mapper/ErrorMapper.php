@@ -2,12 +2,12 @@
 
 namespace WobbleCode\RestBundle\Mapper;
 
-class ValidatorErrorMapper
+class ErrorMapper
 {
     /**
      * {@inheritdoc}
      */
-    public function map($errors)
+    public function mapValidator($errors)
     {
         $errorsMap = [];
         foreach ($errors as $error) {

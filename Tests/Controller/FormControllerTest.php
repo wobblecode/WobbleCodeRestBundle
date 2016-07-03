@@ -24,15 +24,14 @@ class FormControllerTest extends WebTestCase
         $client->request(
             $method,
             $url,
-            $data,
+            [],
             [],
             [
                 'HTTP_ACCEPT' => $accept,
                 'CONTENT_TYPE' => 'application/json'
-            ]
+            ],
+            $data
         );
-
-        echo $client->getResponse()->getContent(); die();
 
         $this->assertEquals($code, $client->getResponse()->getStatusCode());
         $this->assertContains($expected, $client->getResponse()->getContent());
@@ -40,23 +39,31 @@ class FormControllerTest extends WebTestCase
 
     public function urlsProvider()
     {
-        $task['task'] = [
+        $task = [
             'title' => 'My Task',
-            'completed' => true
+            'priority' => 7
         ];
 
-        $taskInvalid['task'] = [
+        $taskInvalid = [
             'title' => '',
-            'priority' => 100
+            'priority' => 220
         ];
 
         return [
             [
                 'POST',
                 '/form/create/',
-                'text/html',
-                'This value should not be blank',
-                $taskInvalid,
+                'application/json',
+                '"priority":7',
+                json_encode($task),
+                200
+            ],
+            [
+                'POST',
+                '/form/create/',
+                'application/json',
+                '"fields":{"title":["This value should not be blank."',
+                json_encode($taskInvalid),
                 422
             ]
         ];

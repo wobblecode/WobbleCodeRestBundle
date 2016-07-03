@@ -147,7 +147,7 @@ forms are usually expecting to be received under a POST variable with the name
 of the form Eg: `$_POST['my_form_name']`
 
     /**
-     * @Rest(payloadMapping={"form"})
+     * @Rest(payloadMapping="form")
      */
 
 ### statusCodeParam

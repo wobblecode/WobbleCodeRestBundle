@@ -19,7 +19,7 @@ use Tests\Fixtures\FooBundle\Form\Type\TaskType;
 class FormController extends Controller
 {
     /**
-     * @Rest()
+     * @Rest(payloadMapping="task")
      * @Route("/form/create/", name="form_create")
      * @Method("POST")
      * @Template("FooBundle:Serializer:task.html.twig")
@@ -35,8 +35,6 @@ class FormController extends Controller
         ));
 
         $form->handleRequest($request);
-
-        var_dump($request->request->all());
 
         if ($form->isSubmitted() && $form->isValid()) {
             return [

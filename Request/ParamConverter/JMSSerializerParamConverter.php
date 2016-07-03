@@ -92,7 +92,7 @@ class JMSSerializerParamConverter implements ParamConverterInterface
             $errors = $this->validator->validate($object);
 
             if (count($errors) > 0) {
-                $mappedErrors = $this->errorMapper->map($errors);
+                $mappedErrors = $this->errorMapper->mapValidator($errors);
                 $request->attributes->set('_payload_validation_errors', $mappedErrors);
             }
         }
