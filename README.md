@@ -23,7 +23,7 @@ These are the main features:
 [![Total Downloads](https://poser.pugx.org/wobblecode/rest-bundle/downloads.svg)](https://packagist.org/packages/wobblecode/rest-bundle)
 [![Travis](https://travis-ci.org/wobblecode/WobbleCodeRestBundle.svg)](https://travis-ci.org/wobblecode/WobbleCodeRestBundle/builds)
 [![License](https://poser.pugx.org/wobblecode/rest-bundle/license.svg)](https://packagist.org/packages/wobblecode/rest-bundle)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a7c1d790-2e24-49a8-830e-1770e3a9038c/mini.png)](https://insight.sensiolabs.com/projects/a7c1d790-2e24-49a8-830e-1770e3a9038c)
+[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/a7c1d790-2e24-49a8-830e-1770e3a9038c.svg)](https://insight.sensiolabs.com/projects/a7c1d790-2e24-49a8-830e-1770e3a9038c)
 
 ### Quick Example
 
