@@ -16,7 +16,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInte
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use JMS\Serializer\Serializer;
-use JMS\Serializer\SerializationContext;
 use WobbleCode\RestBundle\Mapper\MapperInterface;
 
 class JMSSerializerParamConverter implements ParamConverterInterface
