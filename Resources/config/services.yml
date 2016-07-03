@@ -19,5 +19,6 @@ services:
         class: WobbleCode\RestBundle\EventListener\RestSubscriber
         arguments:
             - "@jms_serializer.serializer"
+            - "@wobblecode.restbundle.mapper.validator_error"
         tags:
             - { name: kernel.event_subscriber }

@@ -2,7 +2,9 @@
 
 namespace WobbleCode\RestBundle\Mapper;
 
-class ErrorMapper
+use WobbleCode\RestBundle\Mapper\MapperInterface;
+
+class ErrorMapper implements MapperInterface
 {
     /**
      * {@inheritdoc}
@@ -15,5 +17,27 @@ class ErrorMapper
         }
 
         return $errorsMap;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function mapForm($form)
+    {
+        $errors = [];
+
+        foreach ($form->vars['errors'] as $error) {
+            $errors['main'][] = $error->getMessage();
+        }
+
+        foreach ($form as $v) {
+            if (isset($v->vars['errors']) && $v->vars['errors']) {
+                foreach ($v->vars['errors'] as $error) {
+                    $errors['fields'][$v->vars['name']][] = $error->getMessage();
+                }
+            }
+        }
+
+        return $errors;
     }
 }

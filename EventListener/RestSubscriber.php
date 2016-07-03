@@ -25,6 +25,7 @@ use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializationContext;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use WobbleCode\RestBundle\Exception\ValidationException;
+use WobbleCode\RestBundle\Mapper\MapperInterface;
 
 class RestSubscriber implements EventSubscriberInterface
 {
@@ -43,17 +44,23 @@ class RestSubscriber implements EventSubscriberInterface
     protected $serializationContext;
 
     /**
+     * @var MapperInterface
+     */
+    private $errorMapper;
+
+    /**
      * Constructor
      *
      * @param Serializer $serializer JSM Serializer for responses
      */
-    public function __construct(Serializer $serializer)
+    public function __construct(Serializer $serializer, MapperInterface $errorMapper)
     {
         $this->serializationContext = new SerializationContext();
         $this->serializationContext->setSerializeNull(true);
         $this->serializationContext->enableMaxDepthChecks();
 
         $this->serializer = $serializer;
+        $this->errorMapper = $errorMapper;
     }
 
     /**
@@ -245,35 +252,6 @@ class RestSubscriber implements EventSubscriberInterface
         $response->headers->addCacheControlDirective('no-store', true);
     }
 
-    /**
-     * This method process the form erros and remaps to a proper schema
-     *
-     * @todo should check if there is Unique contstraints to send 409 status
-     * code if those contstraints fails.
-     *
-     * @param Symfony\Component\Form $form Form Object
-     *
-     * @return array
-     */
-    public function checkForm($form)
-    {
-        $errors = [];
-
-        foreach ($form->vars['errors'] as $error) {
-            $errors['main'][] = $error->getMessage();
-        }
-
-        foreach ($form as $v) {
-            if (isset($v->vars['errors']) && $v->vars['errors']) {
-                foreach ($v->vars['errors'] as $error) {
-                    $errors['fields'][$v->vars['name']][] = $error->getMessage();
-                }
-            }
-        }
-
-        return $errors;
-    }
-
     public function onKernelView(GetResponseForControllerResultEvent $event)
     {
         $request    = $event->getRequest();
@@ -305,7 +283,7 @@ class RestSubscriber implements EventSubscriberInterface
             }
 
             if ($form) {
-                $formErrors = $this->checkForm($form);
+                $formErrors = $this->errorMapper->mapForm($form);
             }
 
             if ($formErrors) {
