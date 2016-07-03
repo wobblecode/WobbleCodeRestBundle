@@ -339,7 +339,7 @@ class RestSubscriber implements EventSubscriberInterface
     {
         $exception = $event->getException();
 
-        if ($exception instanceof ValidationException == false) {
+        if ($exception instanceof ValidationException === false) {
             return;
         }
 

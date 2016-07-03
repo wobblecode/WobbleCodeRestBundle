@@ -2,7 +2,7 @@
 
 namespace WobbleCode\RestBundle\Mapper;
 
-use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form;
 
 interface MapperInterface
 {
@@ -25,5 +25,5 @@ interface MapperInterface
      *
      * @return array
      */
-    public function mapForm($form);
+    public function mapForm(Form $form);
 }
