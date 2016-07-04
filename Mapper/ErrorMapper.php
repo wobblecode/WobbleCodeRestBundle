@@ -2,6 +2,7 @@
 
 namespace WobbleCode\RestBundle\Mapper;
 
+use Symfony\Component\Form;
 use WobbleCode\RestBundle\Mapper\MapperInterface;
 
 class ErrorMapper implements MapperInterface
@@ -22,7 +23,7 @@ class ErrorMapper implements MapperInterface
     /**
      * {@inheritdoc}
      */
-    public function mapForm($form)
+    public function mapForm(Form $form)
     {
         $errors = [];
 
