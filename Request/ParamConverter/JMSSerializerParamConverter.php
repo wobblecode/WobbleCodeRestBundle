@@ -87,8 +87,14 @@ class JMSSerializerParamConverter implements ParamConverterInterface
         $object = $this->serializer->deserialize($request->getContent(), $this->class, 'json');
         $object->__construct();
 
+        $validationGroups = ['Default'];
+
+        if (isset($options['validationGroups'])) {
+            $validationGroups = $options['validationGroups'];
+        }
+
         if (isset($options['validation']) && $options['validation']) {
-            $errors = $this->validator->validate($object);
+            $errors = $this->validator->validate($object, null, $validationGroups);
 
             if (count($errors) > 0) {
                 $mappedErrors = $this->errorMapper->mapValidator($errors);
