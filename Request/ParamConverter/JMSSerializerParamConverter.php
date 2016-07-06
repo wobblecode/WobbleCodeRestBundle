@@ -60,6 +60,10 @@ class JMSSerializerParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverter $configuration)
     {
+        if ('jms_serializer' !== $configuration->getConverter()) {
+            return false;
+        }
+
         if (null === $configuration->getClass()) {
             return false;
         }
