@@ -38,10 +38,17 @@ class Task
      *     message="{{ value }} must be numeric {{ type }}."
      * )
      * @Assert\Range(
-     *     min = 0,
-     *     max = 10,
-     *     minMessage = "You must be at least {{ limit }}",
-     *     maxMessage = "Priority max {{ limit }}"
+     *     min=0,
+     *     max=10,
+     *     minMessage="You must be at least {{ limit }}",
+     *     maxMessage="Priority max {{ limit }}"
+     * )
+     * @Assert\Range(
+     *     groups={"trial"},
+     *     min=0,
+     *     max=5,
+     *     minMessage="You must be at least {{ limit }}",
+     *     maxMessage="Priority max {{ limit }}"
      * )
      */
     private $priority = 1;
