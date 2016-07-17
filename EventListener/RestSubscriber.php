@@ -20,6 +20,7 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializationContext;
@@ -144,7 +145,12 @@ class RestSubscriber implements EventSubscriberInterface
         if ($restConfig->getPayloadMapping()) {
             $content = $request->getContent();
             if (empty($content) === false) {
-                $payload = json_decode($content, true);
+                $payload = @json_decode($content, true);
+
+                if ($payload === null && json_last_error() !== JSON_ERROR_NONE) {
+                    throw new BadRequestHttpException('Invalid JSON');
+                }
+
                 $request->request->add(array($restConfig->getPayloadMapping() => $payload));
             }
         }

@@ -90,6 +90,10 @@ class JMSSerializerParamConverter implements ParamConverterInterface
     {
         $options = $configuration->getOptions();
 
+        if (!$request->getContent()) {
+            throw new BadRequestHttpException('Invalid JSON. The payload is empty');
+        }
+
         try {
             $object = $this->serializer->deserialize($request->getContent(), $this->class, 'json');
         } catch (Exception $e) {
