@@ -20,7 +20,7 @@
         "jms/serializer-bundle": "~1.1.0"
     },
     "require-dev": {
-        "symfony/yaml": "*",
+        "symfony/yaml": "3.1.2",
         "symfony/browser-kit": "*",
         "sensio/framework-extra-bundle": "*",
         "symfony/class-loader": "*",
