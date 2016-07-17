@@ -33,6 +33,8 @@ class SerializeControllerTest extends WebTestCase
             $data
         );
 
+        $client->getResponse()->getContent();
+
         $this->assertEquals($code, $client->getResponse()->getStatusCode());
         $this->assertContains($expected, $client->getResponse()->getContent());
     }
@@ -52,7 +54,8 @@ class SerializeControllerTest extends WebTestCase
         return [
             ['POST', 'serialize/1', 'application/json', '"title":"Untitled"', null],
             ['POST', 'serialize/1', 'text/html', 'Task Untitled', null],
-            ['POST', 'deserialize/1', 'application/json', '"title":"Untitled"', null],
+            ['POST', 'deserialize/1', 'application/json', 'Bad Request', null, 400],
+            ['POST', 'deserialize/1', 'application/json', 'Bad Request', '{"bad json",}', 400],
             ['POST', 'deserialize/1', 'application/json', '"title":"My Task"', json_encode($task)],
             ['POST', 'deserialize/1', 'application/json', '"completed":true', json_encode($task)],
             ['POST', 'deserialize/1', 'text/html', 'Task My Task', json_encode($task)],

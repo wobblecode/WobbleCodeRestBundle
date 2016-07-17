@@ -14,8 +14,9 @@ namespace WobbleCode\RestBundle\Request\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use JMS\Serializer\Serializer;
+use JMS\Serializer\Exception\Exception;
 use WobbleCode\RestBundle\Mapper\MapperInterface;
 
 class JMSSerializerParamConverter implements ParamConverterInterface
@@ -88,7 +89,13 @@ class JMSSerializerParamConverter implements ParamConverterInterface
     public function apply(Request $request, ParamConverter $configuration)
     {
         $options = $configuration->getOptions();
-        $object = $this->serializer->deserialize($request->getContent(), $this->class, 'json');
+
+        try {
+            $object = $this->serializer->deserialize($request->getContent(), $this->class, 'json');
+        } catch (Exception $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+
         $object->__construct();
 
         $validationGroups = ['Default'];
