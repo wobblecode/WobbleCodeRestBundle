@@ -14,6 +14,9 @@ framework:
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
 
+parameters:
+    jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
+
 services:
     test.rest.multiple:
         class: Tests\Fixtures\FooBundle\Controller\RestController

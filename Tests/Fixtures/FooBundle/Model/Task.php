@@ -18,6 +18,14 @@ class Task
     private $id;
 
     /**
+     * Camel Case test
+     *
+     * @Type("string")
+     * @Assert\Type("string")
+     */
+    private $camelCase;
+
+    /**
      * Title of the task
      *
      * @Type("string")
@@ -123,6 +131,30 @@ class Task
         $this->title = $title;
 
         return $this;
+    }
+
+    /**
+     * Get camel case test
+     *
+     * @return mixed
+     */
+    public function getCamelCase()
+    {
+        return $this->camelCase;
+    }
+
+    /**
+     * Set camel case test
+     *
+     * @param mixed title
+     *
+     * @return self
+     */
+    public function setCamelCase($camelCase)
+    {
+        $this->camelCase = $camelCase;
+
+        return $camelCase;
     }
 
     /**

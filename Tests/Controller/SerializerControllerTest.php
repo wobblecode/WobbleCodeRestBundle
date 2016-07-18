@@ -33,6 +33,8 @@ class SerializeControllerTest extends WebTestCase
             $data
         );
 
+        $client->getResponse()->getContent();
+
         $this->assertEquals($code, $client->getResponse()->getStatusCode());
         $this->assertContains($expected, $client->getResponse()->getContent());
     }
@@ -41,7 +43,8 @@ class SerializeControllerTest extends WebTestCase
     {
         $task = [
             'title' => 'My Task',
-            'completed' => true
+            'completed' => true,
+            'camelCase' => 'camel'
         ];
 
         $bulkTask = [];
@@ -70,6 +73,7 @@ class SerializeControllerTest extends WebTestCase
             ['POST', 'deserialize/1', 'application/json', '"title":"My Task"', json_encode($task)],
             ['POST', 'deserialize-bulk/1', 'application/json', '"title":"My Task"', json_encode($bulkTask)],
             ['POST', 'deserialize-bulk-limited/1', 'application/json', '"Payload Too Large"', json_encode($bulkTask), 413],
+            ['POST', 'deserialize/1', 'application/json', '"camel"', json_encode($task)],
             ['POST', 'deserialize/1', 'application/json', '"completed":true', json_encode($task)],
             ['POST', 'deserialize/1', 'text/html', 'Task My Task', json_encode($task)],
             ['POST', 'deserialize-validation/default', 'application/json', 'completed":true', json_encode($task)],
