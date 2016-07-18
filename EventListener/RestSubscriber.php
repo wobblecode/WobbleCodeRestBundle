@@ -361,7 +361,7 @@ class RestSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            KernelEvents::EXCEPTION => ['onValidationError', 0],
+            KernelEvents::EXCEPTION => ['onValidationError', 10],
             KernelEvents::REQUEST => ['onKernelRequest', 0],
             KernelEvents::CONTROLLER => ['postAnnotations', -1],
             KernelEvents::RESPONSE => ['onKernelResponse', 0],

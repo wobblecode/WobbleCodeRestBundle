@@ -50,28 +50,28 @@ class SerializeControllerTest extends WebTestCase
         ];
 
         return [
-            //['POST', 'serialize/1', 'application/json', '"title":"Untitled"', null],
-            //['POST', 'serialize/1', 'text/html', 'Task Untitled', null],
+            ['POST', 'serialize/1', 'application/json', '"title":"Untitled"', null],
+            ['POST', 'serialize/1', 'text/html', 'Task Untitled', null],
             ['POST', 'deserialize/1', 'application/json', 'Bad Request', null, 400],
-            // ['POST', 'deserialize/1', 'application/json', 'Bad Request', '{"bad json",}', 400],
-            // ['POST', 'deserialize/1', 'application/json', '"title":"My Task"', json_encode($task)],
-            // ['POST', 'deserialize/1', 'application/json', '"completed":true', json_encode($task)],
-            // ['POST', 'deserialize/1', 'text/html', 'Task My Task', json_encode($task)],
-            // ['POST', 'deserialize-validation/default', 'application/json', 'completed":true', json_encode($task)],
-            // [
-            //     'POST',
-            //     'deserialize-validation/default',
-            //     'application/json',
-            //     'This value should not be blank',
-            //     json_encode($taskInvalid), 422
-            // ],
-            // [
-            //     'POST',
-            //     'deserialize-validation/trial',
-            //     'application/json',
-            //     'Priority max 5',
-            //     json_encode($taskInvalid), 422
-            // ]
+            ['POST', 'deserialize/1', 'application/json', 'Bad Request', '{"bad json",}', 400],
+            ['POST', 'deserialize/1', 'application/json', '"title":"My Task"', json_encode($task)],
+            ['POST', 'deserialize/1', 'application/json', '"completed":true', json_encode($task)],
+            ['POST', 'deserialize/1', 'text/html', 'Task My Task', json_encode($task)],
+            ['POST', 'deserialize-validation/default', 'application/json', 'completed":true', json_encode($task)],
+            [
+                'POST',
+                'deserialize-validation/default',
+                'application/json',
+                'This value should not be blank',
+                json_encode($taskInvalid), 422
+            ],
+            [
+                'POST',
+                'deserialize-validation/trial',
+                'application/json',
+                'Priority max 5',
+                json_encode($taskInvalid), 422
+            ]
         ];
     }
 }
