@@ -14,9 +14,11 @@ namespace WobbleCode\RestBundle\Request\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\Exception\Exception;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use WobbleCode\RestBundle\Mapper\MapperInterface;
 
 class JMSSerializerParamConverter implements ParamConverterInterface
@@ -95,12 +97,35 @@ class JMSSerializerParamConverter implements ParamConverterInterface
         }
 
         try {
-            $object = $this->serializer->deserialize($request->getContent(), $this->class, 'json');
+            if (isset($options['collection']) && $options['collection']) {
+
+                $collection = $this->serializer->deserialize($request->getContent(), 'ArrayCollection<'.$this->class.'>', 'json');
+
+                if (isset($options['collection_limit']) && $options['collection_limit']) {
+                    if (count($collection) > $options['collection_limit']) {
+                        throw new HttpException(Response::HTTP_REQUEST_ENTITY_TOO_LARGE, 'Request entity too large');
+                    }
+                }
+
+                foreach ($collection as $object) {
+                    $object->__construct();
+                }
+
+                $request->attributes->set($configuration->getName(), $collection);
+
+            } else {
+
+                $object = $this->serializer->deserialize($request->getContent(), $this->class, 'json');
+                $object->__construct();
+
+                $request->attributes->set($configuration->getName(), $object);
+            }
+
+
         } catch (Exception $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
 
-        $object->__construct();
 
         $validationGroups = ['Default'];
 
@@ -109,14 +134,44 @@ class JMSSerializerParamConverter implements ParamConverterInterface
         }
 
         if (isset($options['validation']) && $options['validation']) {
-            $errors = $this->validator->validate($object, null, $validationGroups);
 
-            if (count($errors) > 0) {
-                $mappedErrors = $this->errorMapper->mapValidator($errors);
-                $request->attributes->set('_payload_validation_errors', $mappedErrors);
+            if (isset($options['collection']) && $options['collection']) {
+
+                $mappedErrors = [];
+                foreach ($collection as $object) {
+                    $error = $this->validateErrors($object, $validationGroups, $options, true);
+
+                    if ($error) {
+                        $mappedErrors[] = $error;
+                    }
+                }
+            } else {
+                $mappedErrors = $this->validateErrors($object, $validationGroups);
             }
+
+            $request->attributes->set('_payload_validation_errors', $mappedErrors);
         }
 
-        $request->attributes->set($configuration->getName(), $object);
+    }
+
+    private function validateErrors($object, $validationGroups, $options = null, $collection = null)
+    {
+        $errors = $this->validator->validate($object, null, $validationGroups);
+
+        if (count($errors) > 0) {
+            if ($collection) {
+
+                $name = isset($options['collection_errors_name']) ? $options['collection_errors_name'] : null;
+                $id = isset($options['collection_errors_property']) ? $object->{$options['collection_errors_property']}() : null;
+
+                $mappedErrors = $this->errorMapper->mapCollectorValidator($errors, $name, $id);
+            } else {
+                $mappedErrors = $this->errorMapper->mapValidator($errors);
+            }
+
+            return $mappedErrors;
+        }
+
+        return null;
     }
 }

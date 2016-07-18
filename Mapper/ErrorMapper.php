@@ -23,6 +23,24 @@ class ErrorMapper implements MapperInterface
     /**
      * {@inheritdoc}
      */
+    public function mapCollectorValidator($errors, $itemName = null, $itemId = null)
+    {
+        $errorsMap = [];
+
+        if ($itemId) {
+            $errorsMap = [$itemName => $itemId];
+        }
+
+        foreach ($errors as $error) {
+            $errorsMap['fields'][$error->getPropertyPath()][] = $error->getMessage();
+        }
+
+        return $errorsMap;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function mapForm(FormView $form)
     {
         $errors = [];
