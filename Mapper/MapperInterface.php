@@ -16,6 +16,15 @@ interface MapperInterface
     public function mapValidator($data);
 
     /**
+     * Remaps the data schema into an array
+     *
+     * @param Array $data Array of data to remap
+     *
+     * @return Array Remapped data
+     */
+    public function mapCollectorValidator($data, $itemName = null, $itemId = null);
+
+    /**
      * This method process the form erros and remaps to a proper schema
      *
      * @todo should check if there is Unique contstraints to send 409 status

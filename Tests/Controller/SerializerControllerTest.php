@@ -47,17 +47,32 @@ class SerializeControllerTest extends WebTestCase
             'camelCase' => 'camel'
         ];
 
+        $bulkTask = [];
+        for ($i=0; $i<=10; $i++) {
+            $bulkTask[] = $task;
+        }
+
         $taskInvalid = [
             'title' => '',
             'priority' => 100
         ];
 
+        $bulkTaskInvalid = [];
+        for ($i=0; $i<=10; $i++) {
+            $bulkTaskInvalid[] = $taskInvalid;
+        }
+
         return [
             ['POST', 'serialize/1', 'application/json', '"title":"Untitled"', null],
+            ['POST', 'serialize-bulk/1', 'application/json', '"title":"Untitled"', null],
             ['POST', 'serialize/1', 'text/html', 'Task Untitled', null],
             ['POST', 'deserialize/1', 'application/json', 'Bad Request', null, 400],
+            ['POST', 'deserialize-bulk/1', 'application/json', 'Bad Request', null, 400],
             ['POST', 'deserialize/1', 'application/json', 'Bad Request', '{"bad json",}', 400],
+            ['POST', 'deserialize-bulk/1', 'application/json', 'Bad Request', '{"bad json",}', 400],
             ['POST', 'deserialize/1', 'application/json', '"title":"My Task"', json_encode($task)],
+            ['POST', 'deserialize-bulk/1', 'application/json', '"title":"My Task"', json_encode($bulkTask)],
+            ['POST', 'deserialize-bulk-limited/1', 'application/json', '"Payload Too Large"', json_encode($bulkTask), 413],
             ['POST', 'deserialize/1', 'application/json', '"camel"', json_encode($task)],
             ['POST', 'deserialize/1', 'application/json', '"completed":true', json_encode($task)],
             ['POST', 'deserialize/1', 'text/html', 'Task My Task', json_encode($task)],
@@ -75,7 +90,28 @@ class SerializeControllerTest extends WebTestCase
                 'application/json',
                 'Priority max 5',
                 json_encode($taskInvalid), 422
-            ]
+            ],
+            [
+                'POST',
+                'deserialize-validation-bulk/default',
+                'application/json',
+                'This value should not be blank',
+                json_encode($bulkTaskInvalid), 422
+            ],
+            [
+                'POST',
+                'deserialize-validation-bulk/trial',
+                'application/json',
+                'Priority max 5',
+                json_encode($bulkTaskInvalid), 422
+            ],
+            [
+                'POST',
+                'deserialize-validation-bulk-error-name/1',
+                'application/json',
+                '"priority":100',
+                json_encode($bulkTaskInvalid), 422
+            ],
         ];
     }
 }
