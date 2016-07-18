@@ -31,7 +31,8 @@
         "symfony/twig-bundle": "*",
         "doctrine/orm": "*",
         "symfony/form": "*",
-        "symfony/validator": "*"
+        "symfony/validator": "*",
+        "phpunit/phpunit": "^5.3"
     },
     "suggest": {
         "jms/serializer-bundle": "~1.1.0"
