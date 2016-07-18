@@ -160,11 +160,10 @@ class JMSSerializerParamConverter implements ParamConverterInterface
 
         if (count($errors) > 0) {
             if ($collection) {
-
                 $name = isset($options['collection_errors_name']) ? $options['collection_errors_name'] : null;
                 $id = isset($options['collection_errors_property']) ? $object->{$options['collection_errors_property']}() : null;
 
-                $mappedErrors = $this->errorMapper->mapCollectorValidator($errors, $name, $id);
+                $mappedErrors = $this->errorMapper->mapValidator($errors, $name, $id);
             } else {
                 $mappedErrors = $this->errorMapper->mapValidator($errors);
             }
