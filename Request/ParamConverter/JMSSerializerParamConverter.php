@@ -98,7 +98,6 @@ class JMSSerializerParamConverter implements ParamConverterInterface
 
         try {
             if (isset($options['collection']) && $options['collection']) {
-
                 $collection = $this->serializer->deserialize($request->getContent(), 'ArrayCollection<'.$this->class.'>', 'json');
 
                 if (isset($options['collection_limit']) && $options['collection_limit']) {
@@ -112,20 +111,15 @@ class JMSSerializerParamConverter implements ParamConverterInterface
                 }
 
                 $request->attributes->set($configuration->getName(), $collection);
-
             } else {
-
                 $object = $this->serializer->deserialize($request->getContent(), $this->class, 'json');
                 $object->__construct();
 
                 $request->attributes->set($configuration->getName(), $object);
             }
-
-
         } catch (Exception $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
-
 
         $validationGroups = ['Default'];
 
@@ -134,9 +128,7 @@ class JMSSerializerParamConverter implements ParamConverterInterface
         }
 
         if (isset($options['validation']) && $options['validation']) {
-
             if (isset($options['collection']) && $options['collection']) {
-
                 $mappedErrors = [];
                 foreach ($collection as $object) {
                     $error = $this->validateErrors($object, $validationGroups, $options, true);
@@ -151,7 +143,6 @@ class JMSSerializerParamConverter implements ParamConverterInterface
 
             $request->attributes->set('_payload_validation_errors', $mappedErrors);
         }
-
     }
 
     private function validateErrors($object, $validationGroups, $options = null, $collection = null)

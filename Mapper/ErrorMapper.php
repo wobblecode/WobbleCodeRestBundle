@@ -13,11 +13,11 @@ class ErrorMapper implements MapperInterface
     public function mapValidator($errors, $itemName = null, $itemId = null)
     {
         $errorsMap = [];
-        
+
         if ($itemId) {
             $errorsMap = [$itemName => $itemId];
         }
-        
+
         foreach ($errors as $error) {
             $errorsMap['fields'][$error->getPropertyPath()][] = $error->getMessage();
         }
