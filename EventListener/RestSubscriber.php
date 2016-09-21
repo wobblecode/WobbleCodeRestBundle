@@ -45,9 +45,14 @@ class RestSubscriber implements EventSubscriberInterface
     protected $serializationContext;
 
     /**
+     * @var bool
+     */
+    protected $isExecutable = true;
+
+    /**
      * @var MapperInterface
      */
-    private $errorMapper;
+    protected $errorMapper;
 
     /**
      * Constructor
@@ -125,22 +130,13 @@ class RestSubscriber implements EventSubscriberInterface
         $request = $event->getRequest();
         $restConfig = $request->attributes->get('_rest');
 
-        if ($restConfig === null) {
-            return;
-        }
-
-        if (!$request->headers->get('Accept')) {
+        if (isset($restConfig) && !$request->headers->get('Accept')) {
             $request->headers->set('Accept', $restConfig->getDefaultAccept());
         }
 
-        $trigger = $this->checkAcceptedContent(
-            $request,
-            $restConfig->getAcceptedContent()
-        );
-
-        if ($trigger === false) {
+        if (!$this->isExecutable($request, null)) {
             return;
-        }
+        };
 
         if ($restConfig->getPayloadMapping()) {
             $content = $request->getContent();
@@ -171,10 +167,9 @@ class RestSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @todo decouple into HTTP Methods GET, POST, PUT, PATCH, DELETE
-     * @param  FilterResponseEvent $event [description]
+     * Checks if REST features should be executed
      *
-     * @return [type]                     [description]
+     * @param FilterResponseEvent $event
      */
     public function onKernelResponse(FilterResponseEvent $event)
     {
@@ -182,98 +177,30 @@ class RestSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $response = $event->getResponse();
-        $request = $event->getRequest();
-        $restConfig = $request->attributes->get('_rest');
-        $statusCode = $response->getStatusCode();
+        $request    = $event->getRequest();
+        $response   = $event->getResponse();
 
-        if ($restConfig === null) {
+        if (!$this->isExecutable($request, $response)) {
             return;
-        }
-
-        $accepted = $restConfig->getAcceptedContent();
-        $trigger = $this->checkAcceptedContent($request, $accepted);
-
-        if ($trigger === false) {
-            return;
-        }
-
-        if ($restConfig->getInterceptRedirects() === false) {
-            return;
-        }
-
-        /**
-         * Don't intercept 400 for bad requests
-         */
-        if ($statusCode == 400) {
-            return;
-        }
-
-        if (preg_match('/^[45]/', $statusCode)) {
-            return;
-        }
-
-        if (preg_match('/^[3]/', $statusCode)) {
-            $response->setContent(json_encode([]));
-        }
-
-        if ($response->isRedirect() === false) {
-            return;
-        }
-
-        /**
-         * If no exception is thrown, set status code to 201
-         */
-        $response = new Response();
-        $response->headers->set('Content-Type', 'application/json');
-
-        if ($request->getMethod() == 'POST') {
-            $response->setStatusCode(201);
-        }
-
-        if ($request->getMethod() == 'PUT') {
-            $response->setStatusCode(200);
-        }
-
-        if ($request->getMethod() == 'DELETE') {
-            $response->setContent(json_encode([]));
-            $response->setStatusCode(204);
-        }
-
-        $event->setResponse($response);
+        };
     }
 
     /**
-     * Add No cache headers
+     * Generates the content for the view
      *
-     * @param Response $response
+     * @param GetResponseForControllerResultEvent $event [description]
      */
-    public function addNoCacheHeaders(Response $response)
-    {
-        $response->setPrivate();
-        $response->setMaxAge(0);
-        $response->setSharedMaxAge(0);
-        $response->headers->addCacheControlDirective('no-cache', true);
-        $response->headers->addCacheControlDirective('must-revalidate', true);
-        $response->headers->addCacheControlDirective('no-store', true);
-    }
-
     public function onKernelView(GetResponseForControllerResultEvent $event)
     {
         $request    = $event->getRequest();
-        $parameters = $event->getControllerResult();
+        $response   = $event->getResponse();
+
+        if (!$this->isExecutable($request, $response)) {
+            return;
+        };
+
         $restConfig = $request->attributes->get('_rest');
-
-        if ($restConfig === null) {
-            return;
-        }
-
-        $accepted = $restConfig->getAcceptedContent();
-        $trigger = $this->checkAcceptedContent($request, $accepted);
-
-        if ($trigger === false) {
-            return;
-        }
+        $parameters = $event->getControllerResult();
 
         /**
          * Process form
@@ -336,7 +263,9 @@ class RestSubscriber implements EventSubscriberInterface
          * Set response
          */
         $response = new Response();
+        $response->headers->set('Content-Type', 'application/json');
         $response->setContent($data);
+        $this->setStatusCode($request, $response);
         $this->addNoCacheHeaders($response);
         $event->setResponse($response);
     }
@@ -358,14 +287,131 @@ class RestSubscriber implements EventSubscriberInterface
         $event->setResponse($response);
     }
 
+    /**
+     * Checks if the REST features should be enabled. This method it's executed
+     * on every step of the process:
+     *
+     *   postAnnotation -> onKernelResponse -> onKernelView
+     *
+     * @param Request       $request
+     * @param null|Response $response Optional response
+     */
+    public function isExecutable(Request $request, $response = null)
+    {
+        if (!$this->isExecutable) {
+            return false;
+        }
+
+        $restConfig = $request->attributes->get('_rest');
+
+        if ($restConfig === null) {
+            $this->isExecutable = false;
+
+            return false;
+        }
+
+        $accepted = $restConfig->getAcceptedContent();
+        $trigger = $this->checkAcceptedContent($request, $accepted);
+
+        if ($trigger === false) {
+            $this->isExecutable = false;
+
+            return false;
+        }
+
+        if ($restConfig->getInterceptRedirects() === false) {
+            $this->isExecutable = false;
+
+            return false;
+        }
+
+        if ($response === null) {
+            return true;
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode == 400) {
+            $this->isExecutable = false;
+
+            return false;
+        }
+
+        if (preg_match('/^[45]/', $statusCode)) {
+            $this->executable = false;
+
+            return false;
+        }
+
+        if (preg_match('/^[3]/', $statusCode)) {
+            $response->setContent(json_encode([]));
+        }
+
+        if ($response->isRedirect() === false) {
+            $this->isExecutable = false;
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Set status code to response based on request method or status code param
+     *
+     * @param Request  $request
+     * @param Response $response
+     */
+    public function setStatusCode(Request $request, Response $response)
+    {
+        $restConfig = $request->attributes->get('_rest');
+
+        if ($request->getMethod() == 'POST') {
+            $response->setStatusCode(201);
+        }
+
+        if ($request->getMethod() == 'PUT') {
+            $response->setStatusCode(200);
+        }
+
+        if ($request->getMethod() == 'DELETE') {
+            $response->setContent(json_encode([]));
+            $response->setStatusCode(204);
+        }
+
+        $statusCodeParam = $restConfig->getStatusCodeParam();
+
+        if ($statusCodeParam) {
+            # code...
+        }
+    }
+
+    /**
+     * Add No cache headers
+     *
+     * @param Response $response
+     */
+    public function addNoCacheHeaders(Response $response)
+    {
+        $response->setPrivate();
+        $response->setMaxAge(0);
+        $response->setSharedMaxAge(0);
+        $response->headers->addCacheControlDirective('no-cache', true);
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+        $response->headers->addCacheControlDirective('no-store', true);
+    }
+
+    /**
+     * {@inheritdocs}
+     */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             KernelEvents::EXCEPTION => ['onValidationError', 10],
             KernelEvents::REQUEST => ['onKernelRequest', 0],
             KernelEvents::CONTROLLER => ['postAnnotations', -1],
             KernelEvents::RESPONSE => ['onKernelResponse', 0],
             KernelEvents::VIEW => ['onKernelView', 100],
-        );
+        ];
     }
 }

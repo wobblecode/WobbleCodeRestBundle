@@ -18,7 +18,7 @@ class SerializeControllerTest extends WebTestCase
     /**
      * @dataProvider urlsProvider
      */
-    public function testSerializationTriggering($method, $url, $accept, $expected, $data = null, $code = 200)
+    public function testSerializationTriggering($method, $url, $accept, $expected, $data = null, $code = 201)
     {
         $client = static::createClient();
         $client->request(
@@ -65,7 +65,7 @@ class SerializeControllerTest extends WebTestCase
         return [
             ['POST', 'serialize/1', 'application/json', '"title":"Untitled"', null],
             ['POST', 'serialize-bulk/1', 'application/json', '"title":"Untitled"', null],
-            ['POST', 'serialize/1', 'text/html', 'Task Untitled', null],
+            ['POST', 'serialize/1', 'text/html', 'Task Untitled', null, 200],
             ['POST', 'deserialize/1', 'application/json', 'Bad Request', null, 400],
             ['POST', 'deserialize-bulk/1', 'application/json', 'Bad Request', null, 400],
             ['POST', 'deserialize/1', 'application/json', 'Bad Request', '{"bad json",}', 400],
@@ -75,7 +75,7 @@ class SerializeControllerTest extends WebTestCase
             ['POST', 'deserialize-bulk-limited/1', 'application/json', '"Payload Too Large"', json_encode($bulkTask), 413],
             ['POST', 'deserialize/1', 'application/json', '"camel"', json_encode($task)],
             ['POST', 'deserialize/1', 'application/json', '"completed":true', json_encode($task)],
-            ['POST', 'deserialize/1', 'text/html', 'Task My Task', json_encode($task)],
+            ['POST', 'deserialize/1', 'text/html', 'Task My Task', json_encode($task), 200],
             ['POST', 'deserialize-validation/default', 'application/json', 'completed":true', json_encode($task)],
             [
                 'POST',

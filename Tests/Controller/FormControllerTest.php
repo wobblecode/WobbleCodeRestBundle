@@ -56,7 +56,7 @@ class FormControllerTest extends WebTestCase
                 'application/json',
                 '"priority":7',
                 json_encode($task),
-                200
+                201
             ],
             [
                 'POST',
