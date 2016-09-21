@@ -57,4 +57,34 @@ class RestController
     {
         return $this->return;
     }
+
+    /**
+     * @Rest()
+     * @Route("/httpcode/1")
+     * @Template("FooBundle:Rest:item.html.twig")
+     */
+    public function getSetCodeAction()
+    {
+        return [
+            'status_code' => 208,
+            'entity' => [
+                'name' => 'Luis'
+            ]
+        ];
+    }
+
+    /**
+     * @Rest(statusCodeParam="http_code")
+     * @Route("/customcode/1")
+     * @Template("FooBundle:Rest:item.html.twig")
+     */
+    public function getCustomCodeAction()
+    {
+        return [
+            'http_code' => 208,
+            'entity' => [
+                'name' => 'Luis'
+            ]
+        ];
+    }
 }

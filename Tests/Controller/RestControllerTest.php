@@ -18,7 +18,7 @@ class RestControllerTest extends WebTestCase
     /**
      * @dataProvider urlsProvider
      */
-    public function testRestTriggering($url, $accept, $expected)
+    public function testRestTriggering($url, $accept, $expected, $code = 200)
     {
         $client = static::createClient();
         $client->request(
@@ -32,7 +32,7 @@ class RestControllerTest extends WebTestCase
             ]
         );
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals($code, $client->getResponse()->getStatusCode());
         $this->assertContains($expected, $client->getResponse()->getContent());
     }
 
@@ -46,7 +46,9 @@ class RestControllerTest extends WebTestCase
             ['default/1', null, '{"entity":{"name":"Luis"}}'],
             ['all/1', 'text/html', '{"entity":{"name":"Luis"}}'],
             ['all/1', 'application/json', '{"entity":{"name":"Luis"}}'],
-            ['all/1', null, '{"entity":{"name":"Luis"}}']
+            ['all/1', null, '{"entity":{"name":"Luis"}}'],
+            ['httpcode/1', 'application/json', 'Luis', 208],
+            ['customcode/1', 'application/json', 'Luis', 208],
         ];
     }
 }

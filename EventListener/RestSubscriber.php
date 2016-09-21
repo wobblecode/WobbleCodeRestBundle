@@ -177,8 +177,8 @@ class RestSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $request    = $event->getRequest();
-        $response   = $event->getResponse();
+        $request  = $event->getRequest();
+        $response = $event->getResponse();
 
         if (!$this->isExecutable($request, $response)) {
             return;
@@ -192,8 +192,8 @@ class RestSubscriber implements EventSubscriberInterface
      */
     public function onKernelView(GetResponseForControllerResultEvent $event)
     {
-        $request    = $event->getRequest();
-        $response   = $event->getResponse();
+        $request  = $event->getRequest();
+        $response = $event->getResponse();
 
         if (!$this->isExecutable($request, $response)) {
             return;
@@ -265,7 +265,7 @@ class RestSubscriber implements EventSubscriberInterface
         $response = new Response();
         $response->headers->set('Content-Type', 'application/json');
         $response->setContent($data);
-        $this->setStatusCode($request, $response);
+        $this->setStatusCode($request, $response, $parameters);
         $this->addNoCacheHeaders($response);
         $event->setResponse($response);
     }
@@ -362,10 +362,8 @@ class RestSubscriber implements EventSubscriberInterface
      * @param Request  $request
      * @param Response $response
      */
-    public function setStatusCode(Request $request, Response $response)
+    public function setStatusCode(Request $request, Response $response, $params = [])
     {
-        $restConfig = $request->attributes->get('_rest');
-
         if ($request->getMethod() == 'POST') {
             $response->setStatusCode(201);
         }
@@ -379,10 +377,11 @@ class RestSubscriber implements EventSubscriberInterface
             $response->setStatusCode(204);
         }
 
+        $restConfig = $request->attributes->get('_rest');
         $statusCodeParam = $restConfig->getStatusCodeParam();
 
-        if ($statusCodeParam) {
-            # code...
+        if ($statusCodeParam && isset($params[$statusCodeParam])) {
+            $response->setStatusCode($params[$statusCodeParam]);
         }
     }
 
