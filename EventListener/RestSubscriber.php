@@ -130,7 +130,7 @@ class RestSubscriber implements EventSubscriberInterface
         $request = $event->getRequest();
         $restConfig = $request->attributes->get('_rest');
 
-        if (isset($restConfig) && !$request->headers->get('Accept')) {
+        if (isset($restConfig) && (!$request->headers->get('Accept') || $request->headers->get('Accept') == "*/*")) {
             $request->headers->set('Accept', $restConfig->getDefaultAccept());
         }
 
