@@ -24,7 +24,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializationContext;
-use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use WobbleCode\RestBundle\Exception\ValidationException;
 use WobbleCode\RestBundle\Mapper\MapperInterface;
 
@@ -74,7 +74,7 @@ class RestSubscriber implements EventSubscriberInterface
      */
     public function decoupleMetadata($object, $paginationKey = 'entities')
     {
-        if (isset($object[$paginationKey]) && $object[$paginationKey] instanceof SlidingPagination) {
+        if (isset($object[$paginationKey]) && $object[$paginationKey] instanceof PaginationInterface) {
             $entities = $object[$paginationKey];
 
             return [
