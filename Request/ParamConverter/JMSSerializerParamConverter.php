@@ -11,6 +11,7 @@
 
 namespace WobbleCode\RestBundle\Request\ParamConverter;
 
+use JMS\Serializer\DeserializationContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,7 +72,7 @@ class JMSSerializerParamConverter implements ParamConverterInterface
             return false;
         }
 
-        if ($configuration->getClass() == 'Symfony\Component\HttpKernel\Log\DebugLoggerInterface') {
+        if ($configuration->getClass() === 'Symfony\Component\HttpKernel\Log\DebugLoggerInterface') {
             return false;
         }
 
@@ -87,6 +88,7 @@ class JMSSerializerParamConverter implements ParamConverterInterface
      *
      * @throws \InvalidArgumentException When route attributes are missing
      * @throws NotFoundHttpException     When object not found
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
@@ -96,9 +98,19 @@ class JMSSerializerParamConverter implements ParamConverterInterface
             throw new BadRequestHttpException('Invalid JSON. The payload is empty');
         }
 
+        $context = new DeserializationContext();
+        if (isset($options['deserializationGroups']) && $options['deserializationGroups']) {
+            $context->setGroups($options['deserializationGroups']);
+        }
+
         try {
             if (isset($options['collection']) && $options['collection']) {
-                $collection = $this->serializer->deserialize($request->getContent(), 'ArrayCollection<'.$this->class.'>', 'json');
+                $collection = $this->serializer->deserialize(
+                    $request->getContent(),
+                    'ArrayCollection<'.$this->class.'>',
+                    'json',
+                    $context
+                );
 
                 if (isset($options['collection_limit']) && $options['collection_limit']) {
                     if (count($collection) > $options['collection_limit']) {
@@ -112,7 +124,7 @@ class JMSSerializerParamConverter implements ParamConverterInterface
 
                 $request->attributes->set($configuration->getName(), $collection);
             } else {
-                $object = $this->serializer->deserialize($request->getContent(), $this->class, 'json');
+                $object = $this->serializer->deserialize($request->getContent(), $this->class, 'json', $context);
                 $object->__construct();
 
                 $request->attributes->set($configuration->getName(), $object);
