@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "850930bbcf47a5c2949ee0197e90e2f9",
+    "content-hash": "9f5135a5d34b568719eec061bc9a43d3",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1939,7 +1939,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2017-10-19T12:53:54+00:00"
+            "time": "2017-10-19 12:53:54"
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -2020,7 +2020,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2017-11-05T23:21:03+00:00"
+            "time": "2017-11-05 23:21:03"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -2108,7 +2108,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2017-10-28T22:24:26+00:00"
+            "time": "2017-10-28 22:24:26"
         },
         {
             "name": "doctrine/orm",
@@ -2188,7 +2188,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2017-10-31T19:46:02+00:00"
+            "time": "2017-10-31 19:46:02"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -2340,7 +2340,7 @@
                 "reflection",
                 "static analysis"
             ],
-            "time": "2017-09-11T18:02:19+00:00"
+            "time": "2017-09-11 18:02:19"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -2495,7 +2495,70 @@
                 "spy",
                 "stub"
             ],
-            "time": "2017-11-07T12:00:44+00:00"
+            "time": "2017-11-07 12:00:44"
+        },
+        {
+            "name": "phpunit/php-code-coverage",
+            "version": "4.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
+                "reference": "ef7b2f56815df854e66ceaee8ebe9393ae36a40d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ef7b2f56815df854e66ceaee8ebe9393ae36a40d",
+                "reference": "ef7b2f56815df854e66ceaee8ebe9393ae36a40d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-xmlwriter": "*",
+                "php": "^5.6 || ^7.0",
+                "phpunit/php-file-iterator": "^1.3",
+                "phpunit/php-text-template": "^1.2",
+                "phpunit/php-token-stream": "^1.4.2 || ^2.0",
+                "sebastian/code-unit-reverse-lookup": "^1.0",
+                "sebastian/environment": "^1.3.2 || ^2.0",
+                "sebastian/version": "^1.0 || ^2.0"
+            },
+            "require-dev": {
+                "ext-xdebug": "^2.1.4",
+                "phpunit/phpunit": "^5.7"
+            },
+            "suggest": {
+                "ext-xdebug": "^2.5.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sb@sebastian-bergmann.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
+            "homepage": "https://github.com/sebastianbergmann/php-code-coverage",
+            "keywords": [
+                "coverage",
+                "testing",
+                "xunit"
+            ],
+            "time": "2017-04-02T07:44:40+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2632,7 +2695,7 @@
             "keywords": [
                 "timer"
             ],
-            "time": "2017-03-07T15:42:04+00:00"
+            "time": "2017-03-07 15:42:04"
         },
         {
             "name": "phpunit/php-token-stream",
@@ -2681,7 +2744,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2017-08-20T05:47:52+00:00"
+            "time": "2017-08-20 05:47:52"
         },
         {
             "name": "phpunit/phpunit",
@@ -2763,7 +2826,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-11-14T14:50:51+00:00"
+            "time": "2017-11-14 14:50:51"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2822,7 +2885,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2017-06-30T09:13:00+00:00"
+            "time": "2017-06-30 09:13:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -2867,32 +2930,96 @@
             ],
             "description": "Looks up which function or method a line of code belongs to",
             "homepage": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/",
-            "time": "2017-03-04T10:23:55+00:00"
+            "time": "2017-03-04 10:23:55"
         },
         {
-            "name": "sebastian/diff",
-            "version": "dev-master",
+            "name": "sebastian/comparator",
+            "version": "1.2.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "376cb25efae48c66fb660c9ce7bc07e1682b5e84"
+                "url": "https://github.com/sebastianbergmann/comparator.git",
+                "reference": "18a5d97c25f408f48acaf6d1b9f4079314c5996a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/376cb25efae48c66fb660c9ce7bc07e1682b5e84",
-                "reference": "376cb25efae48c66fb660c9ce7bc07e1682b5e84",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/18a5d97c25f408f48acaf6d1b9f4079314c5996a",
+                "reference": "18a5d97c25f408f48acaf6d1b9f4079314c5996a",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0"
+                "php": ">=5.3.3",
+                "sebastian/diff": "~1.2",
+                "sebastian/exporter": "~1.2 || ~2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.2"
+                "phpunit/phpunit": "~4.4"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Jeff Welch",
+                    "email": "whatthejeff@gmail.com"
+                },
+                {
+                    "name": "Volker Dusch",
+                    "email": "github@wallbash.com"
+                },
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@2bepublished.at"
+                },
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sebastian@phpunit.de"
+                }
+            ],
+            "description": "Provides the functionality to compare PHP values for equality",
+            "homepage": "http://www.github.com/sebastianbergmann/comparator",
+            "keywords": [
+                "comparator",
+                "compare",
+                "equality"
+            ],
+            "time": "2017-03-07T10:34:43+00:00"
+        },
+        {
+            "name": "sebastian/diff",
+            "version": "1.4.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/diff.git",
+                "reference": "7f066a26a962dbe58ddea9f72a4e82874a3975a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/7f066a26a962dbe58ddea9f72a4e82874a3975a4",
+                "reference": "7f066a26a962dbe58ddea9f72a4e82874a3975a4",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.3 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -2919,32 +3046,32 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2017-10-05T13:24:46+00:00"
+            "time": "2017-05-22T07:24:03+00:00"
         },
         {
             "name": "sebastian/environment",
-            "version": "dev-master",
+            "version": "2.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "cd0871b3975fb7fc44d11314fd1ee20925fce4f5"
+                "reference": "5795ffe5dc5b02460c3e34222fee8cbe245d8fac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/cd0871b3975fb7fc44d11314fd1ee20925fce4f5",
-                "reference": "cd0871b3975fb7fc44d11314fd1ee20925fce4f5",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/5795ffe5dc5b02460c3e34222fee8cbe245d8fac",
+                "reference": "5795ffe5dc5b02460c3e34222fee8cbe245d8fac",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0"
+                "php": "^5.6 || ^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.1"
+                "phpunit/phpunit": "^5.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -2969,7 +3096,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2017-07-01T08:51:00+00:00"
+            "time": "2016-11-26T07:53:53+00:00"
         },
         {
             "name": "sebastian/exporter",
@@ -3036,7 +3163,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2017-03-07T10:36:49+00:00"
+            "time": "2017-03-07 10:36:49"
         },
         {
             "name": "sebastian/global-state",
@@ -3087,7 +3214,7 @@
             "keywords": [
                 "global state"
             ],
-            "time": "2017-02-23T14:11:06+00:00"
+            "time": "2017-02-23 14:11:06"
         },
         {
             "name": "sebastian/object-enumerator",
@@ -3133,7 +3260,7 @@
             ],
             "description": "Traverses array structures and object graphs to enumerate all referenced objects",
             "homepage": "https://github.com/sebastianbergmann/object-enumerator/",
-            "time": "2017-03-07T10:37:45+00:00"
+            "time": "2017-03-07 10:37:45"
         },
         {
             "name": "sebastian/recursion-context",
@@ -3186,7 +3313,7 @@
             ],
             "description": "Provides functionality to recursively process PHP variables",
             "homepage": "http://www.github.com/sebastianbergmann/recursion-context",
-            "time": "2017-03-08T08:21:15+00:00"
+            "time": "2017-03-08 08:21:15"
         },
         {
             "name": "sebastian/resource-operations",
@@ -3228,7 +3355,7 @@
             ],
             "description": "Provides a list of PHP built-in functions that operate on resources",
             "homepage": "https://www.github.com/sebastianbergmann/resource-operations",
-            "time": "2016-10-03T07:43:09+00:00"
+            "time": "2016-10-03 07:43:09"
         },
         {
             "name": "sebastian/version",
@@ -3271,7 +3398,7 @@
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
-            "time": "2016-10-03T07:35:21+00:00"
+            "time": "2016-10-03 07:35:21"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -3340,7 +3467,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2017-10-20T14:04:00+00:00"
+            "time": "2017-10-20 14:04:00"
         },
         {
             "name": "symfony/browser-kit",
@@ -3397,7 +3524,7 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-07T14:45:01+00:00"
+            "time": "2017-11-07 14:45:01"
         },
         {
             "name": "symfony/class-loader",
@@ -3453,7 +3580,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-02T06:49:52+00:00"
+            "time": "2017-10-02 06:49:52"
         },
         {
             "name": "symfony/console",
@@ -3522,7 +3649,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-12T16:54:20+00:00"
+            "time": "2017-11-12 16:54:20"
         },
         {
             "name": "symfony/css-selector",
@@ -3575,7 +3702,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-07T14:45:01+00:00"
+            "time": "2017-11-07 14:45:01"
         },
         {
             "name": "symfony/doctrine-bridge",
@@ -3654,7 +3781,7 @@
             ],
             "description": "Symfony Doctrine Bridge",
             "homepage": "https://symfony.com",
-            "time": "2017-11-07T14:45:01+00:00"
+            "time": "2017-11-07 14:45:01"
         },
         {
             "name": "symfony/dom-crawler",
@@ -3710,7 +3837,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-07T14:45:01+00:00"
+            "time": "2017-11-07 14:45:01"
         },
         {
             "name": "symfony/form",
@@ -3790,7 +3917,7 @@
             ],
             "description": "Symfony Form Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-13T18:20:21+00:00"
+            "time": "2017-11-13 18:20:21"
         },
         {
             "name": "symfony/inflector",
@@ -3847,7 +3974,7 @@
                 "symfony",
                 "words"
             ],
-            "time": "2017-08-31T20:46:21+00:00"
+            "time": "2017-08-31 20:46:21"
         },
         {
             "name": "symfony/intl",
@@ -3922,7 +4049,7 @@
                 "l10n",
                 "localization"
             ],
-            "time": "2017-11-10T19:37:45+00:00"
+            "time": "2017-11-10 19:37:45"
         },
         {
             "name": "symfony/options-resolver",
@@ -3976,7 +4103,7 @@
                 "configuration",
                 "options"
             ],
-            "time": "2017-11-07T14:45:01+00:00"
+            "time": "2017-11-07 14:45:01"
         },
         {
             "name": "symfony/polyfill-intl-icu",
@@ -4034,7 +4161,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-10-11T12:05:26+00:00"
+            "time": "2017-10-11 12:05:26"
         },
         {
             "name": "symfony/process",
@@ -4083,7 +4210,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-13T18:20:21+00:00"
+            "time": "2017-11-13 18:20:21"
         },
         {
             "name": "symfony/property-access",
@@ -4150,7 +4277,184 @@
                 "property path",
                 "reflection"
             ],
+            "time": "2017-11-09 12:45:29"
+        },
+        {
+            "name": "symfony/security-core",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/security-core.git",
+                "reference": "5e57bd020b83a5bf7c40f9aa3d28d69013398927"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/security-core/zipball/5e57bd020b83a5bf7c40f9aa3d28d69013398927",
+                "reference": "5e57bd020b83a5bf7c40f9aa3d28d69013398927",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "require-dev": {
+                "psr/container": "^1.0",
+                "psr/log": "~1.0",
+                "symfony/event-dispatcher": "~3.4|~4.0",
+                "symfony/expression-language": "~3.4|~4.0",
+                "symfony/http-foundation": "~3.4|~4.0",
+                "symfony/ldap": "~3.4|~4.0",
+                "symfony/validator": "~3.4|~4.0"
+            },
+            "suggest": {
+                "psr/container": "To instantiate the Security class",
+                "symfony/event-dispatcher": "",
+                "symfony/expression-language": "For using the expression voter",
+                "symfony/http-foundation": "",
+                "symfony/ldap": "For using LDAP integration",
+                "symfony/validator": "For using the user password constraint"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Security\\Core\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Security Component - Core Library",
+            "homepage": "https://symfony.com",
             "time": "2017-11-09T12:45:29+00:00"
+        },
+        {
+            "name": "symfony/security-csrf",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/security-csrf.git",
+                "reference": "6a5048ee5d59fdf4d9fdf9fba99c406b2585f27a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/security-csrf/zipball/6a5048ee5d59fdf4d9fdf9fba99c406b2585f27a",
+                "reference": "6a5048ee5d59fdf4d9fdf9fba99c406b2585f27a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/security-core": "~3.4|~4.0"
+            },
+            "require-dev": {
+                "symfony/http-foundation": "~3.4|~4.0"
+            },
+            "suggest": {
+                "symfony/http-foundation": "For using the class SessionTokenStorage."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Security\\Csrf\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Security Component - CSRF Library",
+            "homepage": "https://symfony.com",
+            "time": "2017-11-07T14:45:01+00:00"
+        },
+        {
+            "name": "symfony/templating",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/templating.git",
+                "reference": "6b639f34e81d589cd66c5a503ec76635b6c057c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/templating/zipball/6b639f34e81d589cd66c5a503ec76635b6c057c5",
+                "reference": "6b639f34e81d589cd66c5a503ec76635b6c057c5",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "require-dev": {
+                "psr/log": "~1.0"
+            },
+            "suggest": {
+                "psr/log": "For using debug logging in loaders"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Templating\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Templating Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-11-07T14:45:01+00:00"
         },
         {
             "name": "symfony/translation",
@@ -4218,7 +4522,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-07T14:45:01+00:00"
+            "time": "2017-11-07 14:45:01"
         },
         {
             "name": "symfony/twig-bridge",
@@ -4308,7 +4612,7 @@
             ],
             "description": "Symfony Twig Bridge",
             "homepage": "https://symfony.com",
-            "time": "2017-11-12T16:47:31+00:00"
+            "time": "2017-11-12 16:47:31"
         },
         {
             "name": "symfony/twig-bundle",
@@ -4381,7 +4685,7 @@
             ],
             "description": "Symfony TwigBundle",
             "homepage": "https://symfony.com",
-            "time": "2017-11-10T19:37:45+00:00"
+            "time": "2017-11-10 19:37:45"
         },
         {
             "name": "symfony/validator",
@@ -4465,7 +4769,7 @@
             ],
             "description": "Symfony Validator Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-10T19:37:45+00:00"
+            "time": "2017-11-10 19:37:45"
         },
         {
             "name": "symfony/yaml",
@@ -4523,7 +4827,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-10T19:03:56+00:00"
+            "time": "2017-11-10 19:03:56"
         },
         {
             "name": "twig/twig",
@@ -4589,7 +4893,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-11-12T18:48:08+00:00"
+            "time": "2017-11-12 18:48:08"
         },
         {
             "name": "webmozart/assert",
@@ -4639,7 +4943,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2016-11-23T20:04:41+00:00"
+            "time": "2016-11-23 20:04:41"
         }
     ],
     "aliases": [],
