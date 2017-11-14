@@ -18,4 +18,4 @@ env:
 install:
   - composer self-update
   - if [[ "$TRAVIS_PHP_VERSION" != "hhvm" ]]; then rm /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini; fi;
-  - composer install --dev
+  - composer install
