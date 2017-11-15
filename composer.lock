@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f5135a5d34b568719eec061bc9a43d3",
+    "content-hash": "7447b5aafb492af3aad8eb664fd63f31",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -641,16 +641,16 @@
         },
         {
             "name": "jms/serializer-bundle",
-            "version": "dev-master",
+            "version": "dev-sf4-compat",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSSerializerBundle.git",
-                "reference": "dd40bfcb58ce01a950393f258d3d02a8dc4f4127"
+                "reference": "56c78eae35e69915e8ec0727009f3c12a028c4e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSSerializerBundle/zipball/dd40bfcb58ce01a950393f258d3d02a8dc4f4127",
-                "reference": "dd40bfcb58ce01a950393f258d3d02a8dc4f4127",
+                "url": "https://api.github.com/repos/schmittjoh/JMSSerializerBundle/zipball/56c78eae35e69915e8ec0727009f3c12a028c4e4",
+                "reference": "56c78eae35e69915e8ec0727009f3c12a028c4e4",
                 "shasum": ""
             },
             "require": {
@@ -715,7 +715,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2017-09-29 08:48:26"
+            "time": "2017-09-29 09:58:28"
         },
         {
             "name": "phpcollection/phpcollection",
@@ -2558,7 +2558,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-04-02T07:44:40+00:00"
+            "time": "2017-04-02 07:44:40"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2994,7 +2994,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2017-03-07T10:34:43+00:00"
+            "time": "2017-03-07 10:34:43"
         },
         {
             "name": "sebastian/diff",
@@ -3046,7 +3046,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2017-05-22T07:24:03+00:00"
+            "time": "2017-05-22 07:24:03"
         },
         {
             "name": "sebastian/environment",
@@ -3096,7 +3096,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2016-11-26T07:53:53+00:00"
+            "time": "2016-11-26 07:53:53"
         },
         {
             "name": "sebastian/exporter",
@@ -4343,7 +4343,7 @@
             ],
             "description": "Symfony Security Component - Core Library",
             "homepage": "https://symfony.com",
-            "time": "2017-11-09T12:45:29+00:00"
+            "time": "2017-11-09 12:45:29"
         },
         {
             "name": "symfony/security-csrf",
@@ -4399,7 +4399,7 @@
             ],
             "description": "Symfony Security Component - CSRF Library",
             "homepage": "https://symfony.com",
-            "time": "2017-11-07T14:45:01+00:00"
+            "time": "2017-11-07 14:45:01"
         },
         {
             "name": "symfony/templating",
@@ -4454,7 +4454,7 @@
             ],
             "description": "Symfony Templating Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-07T14:45:01+00:00"
+            "time": "2017-11-07 14:45:01"
         },
         {
             "name": "symfony/translation",
@@ -4948,11 +4948,13 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "jms/serializer-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~5.4|~7.0"
+        "php": "~7.0"
     },
     "platform-dev": []
 }
