@@ -15,7 +15,6 @@
         "php": "~7.1",
         "symfony/framework-bundle": "~3.0|~4.0",
         "symfony/dependency-injection": "~3.0|~4.0",
-        "willdurand/negotiation": "~3.0",
         "doctrine/common": "~2.2",
         "jms/serializer-bundle": "dev-sf4-compat"
     },
