@@ -1,6 +1,8 @@
 
 # WobbleCodeRestBundle
 
+## NOTE: This branch is for Symfony 4
+
 A bundle that creates RESTful Apis in seconds, based on your current controllers
 actions just using annotations. This is very helpful if you need access to a
 basic RESTful API under the same domain or page.
@@ -21,7 +23,7 @@ These are the main features:
 
 [![Latest Stable Version](https://poser.pugx.org/wobblecode/rest-bundle/v/stable.svg)](https://packagist.org/packages/wobblecode/rest-bundle)
 [![Total Downloads](https://poser.pugx.org/wobblecode/rest-bundle/downloads.svg)](https://packagist.org/packages/wobblecode/rest-bundle)
-[![Travis](https://travis-ci.org/wobblecode/WobbleCodeRestBundle.svg)](https://travis-ci.org/wobblecode/WobbleCodeRestBundle/builds)
+[![Travis](https://travis-ci.org/wobblecode/WobbleCodeRestBundle.svg?branch=feature%2Fsymfony4-support)](https://travis-ci.org/wobblecode/WobbleCodeRestBundle/builds)
 [![License](https://poser.pugx.org/wobblecode/rest-bundle/license.svg)](https://packagist.org/packages/wobblecode/rest-bundle)
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/a7c1d790-2e24-49a8-830e-1770e3a9038c.svg)](https://insight.sensiolabs.com/projects/a7c1d790-2e24-49a8-830e-1770e3a9038c)
 
