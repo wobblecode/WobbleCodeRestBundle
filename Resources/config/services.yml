@@ -1,4 +1,39 @@
 services:
+    jms_serializer.doctrine_proxy_subscriber:
+        class: JMS\Serializer\EventDispatcher\Subscriber\DoctrineProxySubscriber
+        public: true
+        tags:
+            - { name: jms_serializer.event_subscriber }
+        arguments:
+            - true
+            - false
+    jms_serializer.stopwatch_subscriber:
+        class: JMS\SerializerBundle\Serializer\StopwatchEventSubscriber
+        public: true
+        arguments:
+            - "?debug.stopwatch"
+    jms_serializer.datetime_handler:
+        class: JMS\Serializer\Handler\DateHandler
+        public: true
+        tags:
+            - { name: jms_serializer.subscribing_handler }
+    jms_serializer.array_collection_handler:
+        class: JMS\Serializer\Handler\ArrayCollectionHandler
+        public: true
+        tags:
+            - { name: jms_serializer.subscribing_handler }
+
+
+        # <parameter key="jms_serializer.datetime_handler.class">JMS\Serializer\Handler\DateHandler</parameter>
+        # <parameter key="jms_serializer.array_collection_handler.class">JMS\Serializer\Handler\ArrayCollectionHandler</parameter>
+        # <parameter key="jms_serializer.php_collection_handler.class">JMS\Serializer\Handler\PhpCollectionHandler</parameter>
+        # <parameter key="jms_serializer.form_error_handler.class">JMS\Serializer\Handler\FormErrorHandler</parameter>
+        # <parameter key="jms_serializer.constraint_violation_handler.class">JMS\Serializer\Handler\ConstraintViolationHandler</parameter>
+        # <parameter key="jms_serializer.doctrine_proxy_subscriber.class">JMS\Serializer\EventDispatcher\Subscriber\DoctrineProxySubscriber</parameter>
+        # <parameter key="jms_serializer.stopwatch_subscriber.class">JMS\SerializerBundle\Serializer\StopwatchEventSubscriber</parameter>
+
+
+
     wobblecode.restbundle.mapper.validator_error:
         class: WobbleCode\RestBundle\Mapper\ErrorMapper
     wobblecode.restbundle.param_converter.jms_serializer:

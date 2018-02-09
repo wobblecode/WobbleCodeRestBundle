@@ -7,8 +7,7 @@ cache:
     - $HOME/.composer/cache
 
 php:
-  - 5.6
-  - 7.0
+  - 7.1
 
 env:
   global:
@@ -17,4 +16,4 @@ env:
 install:
   - composer self-update
   - if [[ "$TRAVIS_PHP_VERSION" != "hhvm" ]]; then rm /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini; fi;
-  - composer install --dev
+  - composer install

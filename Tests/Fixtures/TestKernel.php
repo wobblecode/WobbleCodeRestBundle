@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Symfony framework.
  *
@@ -7,6 +8,8 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+namespace Tests\Fixtures;
+
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use JMS\SerializerBundle\JMSSerializerBundle;
@@ -19,11 +22,11 @@ class TestKernel extends Kernel
     public function registerBundles()
     {
         return [
-            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Symfony\Bundle\TwigBundle\TwigBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle(),
-            new Tests\Fixtures\FooBundle\FooBundle()
+            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new \Symfony\Bundle\TwigBundle\TwigBundle(),
+            new \JMS\SerializerBundle\JMSSerializerBundle(),
+            new FooBundle\FooBundle()
         ];
     }
     public function registerContainerConfiguration(LoaderInterface $loader)

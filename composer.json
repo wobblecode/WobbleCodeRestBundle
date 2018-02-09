@@ -12,17 +12,17 @@
         }
     ],
     "require": {
-        "php": ">=5.4",
-        "symfony/framework-bundle": "~2.3|~3.0",
-        "symfony/dependency-injection": "~2.3|~3.0",
-        "willdurand/negotiation": "2.0.2",
-        "doctrine/common": "~2.2",
-        "jms/serializer-bundle": "~1.1.0|^2.0|dev-master"
+        "php": "~7.1",
+        "symfony/framework-bundle": "~3.0|~4.0",
+        "symfony/dependency-injection": "~3.0|~4.0",
+        "doctrine/common": "~2.2"
     },
     "require-dev": {
-        "symfony/yaml": "3.1.2",
+        "symfony/yaml": "~3.1",
         "symfony/browser-kit": "*",
         "sensio/framework-extra-bundle": "*",
+        "symfony/security-csrf": "*",
+        "symfony/templating": "*",
         "symfony/class-loader": "*",
         "symfony/finder": "*",
         "symfony/css-selector": "*",
