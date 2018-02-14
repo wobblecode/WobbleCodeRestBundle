@@ -32,7 +32,8 @@
         "doctrine/orm": "*",
         "symfony/form": "*",
         "symfony/validator": "*",
-        "phpunit/phpunit": "^5.3"
+        "phpunit/phpunit": "^5.3",
+        "jms/serializer-bundle": "~1.1.0|^2.0"
     },
     "suggest": {
         "jms/serializer-bundle": "~1.1.0|^2.0"
