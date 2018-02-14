@@ -24,8 +24,6 @@ class Configuration implements ConfigurationInterface
 {
     /**
      * {@inheritDoc}
-     *
-     * @todo Create configuration tree for RestBundle
      */
     public function getConfigTreeBuilder()
     {
