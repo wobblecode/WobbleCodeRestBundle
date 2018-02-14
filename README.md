@@ -1,7 +1,6 @@
-
 # WobbleCodeRestBundle
 
-## NOTE: This branch is for Symfony 4
+## Quick RESTFul Apis For Symofny 3 & 4
 
 A bundle that creates RESTful Apis in seconds, based on your current controllers
 actions just using annotations. This is very helpful if you need access to a
@@ -25,7 +24,7 @@ These are the main features:
 [![Total Downloads](https://poser.pugx.org/wobblecode/rest-bundle/downloads.svg)](https://packagist.org/packages/wobblecode/rest-bundle)
 [![Travis](https://travis-ci.org/wobblecode/WobbleCodeRestBundle.svg?branch=feature%2Fsymfony4-support)](https://travis-ci.org/wobblecode/WobbleCodeRestBundle/builds)
 [![License](https://poser.pugx.org/wobblecode/rest-bundle/license.svg)](https://packagist.org/packages/wobblecode/rest-bundle)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/a7c1d790-2e24-49a8-830e-1770e3a9038c.svg)](https://insight.sensiolabs.com/projects/a7c1d790-2e24-49a8-830e-1770e3a9038c)
+[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/2f4e1635-bf06-4f84-97e8-e7923a41274b.svg)](https://insight.sensiolabs.com/projects/2f4e1635-bf06-4f84-97e8-e7923a41274b)
 
 ### Quick Example
 
