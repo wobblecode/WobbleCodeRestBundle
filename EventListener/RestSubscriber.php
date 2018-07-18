@@ -59,8 +59,10 @@ class RestSubscriber implements EventSubscriberInterface
      *
      * @param Serializer $serializer JSM Serializer for responses
      */
-    public function __construct(Serializer $serializer, MapperInterface $errorMapper)
-    {
+    public function __construct(
+        Serializer $serializer,
+        MapperInterface $errorMapper
+    ) {
         $this->serializationContext = new SerializationContext();
         $this->serializationContext->setSerializeNull(true);
         $this->serializationContext->enableMaxDepthChecks();
@@ -240,12 +242,8 @@ class RestSubscriber implements EventSubscriberInterface
         $decoupleMetadata = $this->decoupleMetadata($params);
         $params = array_merge($params, $decoupleMetadata);
 
-        if (isset($parameters['metadata'])) {
-            $params = array_merge_recursive($params, ['metadata' => $parameters['metadata']]);
-        }
-
         /**
-         * Proces serializer groups
+         * Process serializer groups
          */
         $serializeGroups = $restConfig->getSerializeGroups();
 
@@ -310,6 +308,7 @@ class RestSubscriber implements EventSubscriberInterface
             return false;
         }
 
+        // TODO default or annotation
         $accepted = $restConfig->getAcceptedContent();
         $trigger = $this->checkAcceptedContent($request, $accepted);
 
