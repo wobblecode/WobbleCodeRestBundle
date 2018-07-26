@@ -400,6 +400,16 @@ class RestSubscriber implements EventSubscriberInterface
     }
 
     /**
+     * Set serialize default option
+     *
+     * @param bool $serializeNull
+     */
+    public function setSerializeNull(bool $serializeNull)
+    {
+        $this->serializationContext->setSerializeNull($serializeNull);
+    }
+
+    /**
      * {@inheritdocs}
      */
     public static function getSubscribedEvents()
