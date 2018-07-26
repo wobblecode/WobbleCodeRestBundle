@@ -81,10 +81,10 @@ class RestSubscriber implements EventSubscriberInterface
 
             return [
                 'metadata' => [
-                    'count'          => $entities->count(),
-                    'total_count'    => $entities->getTotalItemCount(),
-                    'items_per_page' => $entities->getItemNumberPerPage(),
-                    'page_number'    => $entities->getCurrentPageNumber()
+                    'count'          => (int) $entities->count(),
+                    'total_count'    => (int) $entities->getTotalItemCount(),
+                    'items_per_page' => (int) $entities->getItemNumberPerPage(),
+                    'page_number'    => (int) $entities->getCurrentPageNumber()
                 ],
                 $paginationKey => $entities->getItems()
             ];
