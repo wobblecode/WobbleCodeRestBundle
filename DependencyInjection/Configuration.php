@@ -29,6 +29,13 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
 
+        $rootNode = $treeBuilder->root('wobble_code_rest');
+
+        $rootNode
+            ->children()
+                ->booleanNode('serialize_null')->defaultTrue()->end()
+            ->end();
+
         return $treeBuilder;
     }
 }

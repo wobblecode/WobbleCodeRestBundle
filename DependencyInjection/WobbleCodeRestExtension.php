@@ -11,6 +11,7 @@
 
 namespace WobbleCode\RestBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -29,6 +30,16 @@ class WobbleCodeRestExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $processor = new Processor();
+        $configuration = new Configuration();
+
+        $config = $processor->processConfiguration($configuration, $configs);
+
         $loader->load('services.yml');
+
+        $definition = $container->getDefinition('wobblecode.restbundle.rest_suscriber');
+        $definition->addMethodCall('setSerializeNull', [
+            $config['serialize_null']
+        ]);
     }
 }

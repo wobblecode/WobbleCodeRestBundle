@@ -81,10 +81,10 @@ class RestSubscriber implements EventSubscriberInterface
 
             return [
                 'metadata' => [
-                    'count'          => $entities->count(),
-                    'total_count'    => $entities->getTotalItemCount(),
-                    'items_per_page' => $entities->getItemNumberPerPage(),
-                    'page_number'    => $entities->getCurrentPageNumber()
+                    'count'          => (int) $entities->count(),
+                    'total_count'    => (int) $entities->getTotalItemCount(),
+                    'items_per_page' => (int) $entities->getItemNumberPerPage(),
+                    'page_number'    => (int) $entities->getCurrentPageNumber()
                 ],
                 $paginationKey => $entities->getItems()
             ];
@@ -397,6 +397,16 @@ class RestSubscriber implements EventSubscriberInterface
         $response->headers->addCacheControlDirective('no-cache', true);
         $response->headers->addCacheControlDirective('must-revalidate', true);
         $response->headers->addCacheControlDirective('no-store', true);
+    }
+
+    /**
+     * Set serialize default option
+     *
+     * @param bool $serializeNull
+     */
+    public function setSerializeNull(bool $serializeNull)
+    {
+        $this->serializationContext->setSerializeNull($serializeNull);
     }
 
     /**

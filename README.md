@@ -193,6 +193,15 @@ Process forms errors
 
 Process params with name form as principal Form for validation
 
+### Configuration
+
+You can set serialize null property on bundle configuration.
+
+```yaml
+wobble_code_rest:
+    serialize_null: false
+```
+
 ## License
 
 Copyright (c) 2016 Luis Hdez
