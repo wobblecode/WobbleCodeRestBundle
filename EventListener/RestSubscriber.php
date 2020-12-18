@@ -11,6 +11,7 @@
 
 namespace WobbleCode\RestBundle\EventListener;
 
+use WobbleCode\RestBundle\Event\PreSerializeConfigurationEvent;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -21,6 +22,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializationContext;
@@ -63,6 +65,7 @@ class RestSubscriber implements EventSubscriberInterface
         Serializer $serializer,
         MapperInterface $errorMapper
     ) {
+        $this->dispatcher = new EventDispatcher();
         $this->serializationContext = new SerializationContext();
         $this->serializationContext->setSerializeNull(true);
         $this->serializationContext->enableMaxDepthChecks();
@@ -201,7 +204,10 @@ class RestSubscriber implements EventSubscriberInterface
             return;
         };
 
-        $restConfig = $request->attributes->get('_rest');
+        $preRestConfig = $request->attributes->get('_rest');
+        $restEvent = new PreSerializeConfigurationEvent($preRestConfig);
+        $this->dispatcher->dispatch(PreSerializeConfigurationEvent::NAME, $restEvent);
+        $restConfig = $restEvent->getConfiguration();
         $parameters = $event->getControllerResult();
 
         /**
