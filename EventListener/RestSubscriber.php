@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializationContext;
@@ -64,7 +64,7 @@ class RestSubscriber implements EventSubscriberInterface
     public function __construct(
         Serializer $serializer,
         MapperInterface $errorMapper,
-        $eventDispatcher = null
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->dispatcher = $eventDispatcher;
         $this->serializationContext = new SerializationContext();
