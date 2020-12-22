@@ -55,5 +55,6 @@ services:
         arguments:
             - "@jms_serializer.serializer"
             - "@wobblecode.restbundle.mapper.validator_error"
+            - ?@event_dispatcher
         tags:
             - { name: kernel.event_subscriber }

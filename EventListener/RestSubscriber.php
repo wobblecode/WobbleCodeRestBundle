@@ -63,9 +63,10 @@ class RestSubscriber implements EventSubscriberInterface
      */
     public function __construct(
         Serializer $serializer,
-        MapperInterface $errorMapper
+        MapperInterface $errorMapper,
+        $eventDispatcher = null
     ) {
-        $this->dispatcher = new EventDispatcher();
+        $this->dispatcher = $eventDispatcher;
         $this->serializationContext = new SerializationContext();
         $this->serializationContext->setSerializeNull(true);
         $this->serializationContext->enableMaxDepthChecks();
